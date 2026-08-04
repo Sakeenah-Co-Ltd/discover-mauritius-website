@@ -94,8 +94,11 @@ export function SmartImage({
   return (
     <div
       className={cn(
-        "relative overflow-hidden bg-ink/5",
-        cover ? "absolute inset-0" : rounded && "rounded-media",
+        "overflow-hidden bg-ink/5",
+        // `relative` and `absolute` must never coexist here: both would be
+        // emitted and stylesheet order (not class order) decides the winner,
+        // which collapsed every cover-mode image to zero height.
+        cover ? "absolute inset-0" : cn("relative", rounded && "rounded-media"),
         className,
       )}
       style={cover ? undefined : { aspectRatio: ratio }}
@@ -110,6 +113,7 @@ export function SmartImage({
           priority={priority}
           sizes={sizes}
           className="object-cover"
+          style={slot.position ? { objectPosition: slot.position } : undefined}
         />
       ) : (
         <Placeholder tone={tone} hint={hint} label={slot.alt} />

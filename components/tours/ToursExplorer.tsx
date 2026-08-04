@@ -21,7 +21,7 @@ function Chip({
       aria-pressed={active}
       onClick={onClick}
       className={cn(
-        "rounded-full border px-4 py-2 text-sm font-medium transition-all focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ocean",
+        "rounded-full border px-4 py-2 text-sm font-medium transition-all duration-200 ease-out active:scale-95 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-ocean",
         active
           ? "border-ocean bg-ocean text-white shadow-card"
           : "border-hairline bg-white text-ink hover:border-ocean/40 hover:bg-lagoon-mist",

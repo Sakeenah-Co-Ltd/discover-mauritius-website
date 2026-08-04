@@ -54,8 +54,12 @@ lib/                 Types, product helpers, schema (JSON-LD), utils
 | Design tokens (colours, type, radii) | `app/globals.css` (`@theme`) |
 
 ## Images
-No photos are wired yet — every slot renders a branded gradient placeholder. To add a real photo,
-set `src` on the slot and drop the file in `/public/images`. See **`IMAGE-SHOTLIST.md`**.
+One real photo is wired: `public/images/le-morne-photo.jpg` (home hero + `/tours` header + the
+South tour). Its companion `le-morne-ridge.png` is a sky-boundary cutout that lets the hero
+aircraft disappear behind Le Morne — regenerate it if the photo is ever replaced (see NOTES.md,
+2026-08-04). Every other slot still renders a branded gradient placeholder. To add a real photo,
+set `src` (and optionally `position`) on the slot and drop the file in `/public/images`. See
+**`IMAGE-SHOTLIST.md`**.
 
 ## Project docs
 - **`NOTES.md`** — design analysis of the references + the design system + signature element (design log).

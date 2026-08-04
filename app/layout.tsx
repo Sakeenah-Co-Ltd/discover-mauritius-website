@@ -11,6 +11,7 @@ import { site } from "@/content/site";
 const fraunces = Fraunces({
   subsets: ["latin"],
   display: "swap",
+  style: ["normal", "italic"],
   variable: "--font-fraunces",
 });
 

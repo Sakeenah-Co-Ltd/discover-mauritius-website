@@ -24,7 +24,7 @@ export interface ReefWaveProps {
 export function ReefWave({ fill = "canvas", flip = false, className }: ReefWaveProps) {
   const color = (SURFACE_COLOR as Record<string, string>)[fill] ?? fill;
   return (
-    <div aria-hidden="true" className={cn("pointer-events-none -mb-px w-full leading-[0]", className)}>
+    <div aria-hidden="true" className={cn("pointer-events-none relative -mb-px w-full leading-[0]", className)}>
       <svg
         viewBox="0 0 1440 120"
         preserveAspectRatio="none"

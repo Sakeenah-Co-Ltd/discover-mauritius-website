@@ -41,6 +41,14 @@
     var(--color-lagoon) 55%,
     var(--color-gold) 100%
   );
+
+  /* --- Photo-derived accents (from le-morne-photo.jpg) --------------------- */
+  --color-gold-soft: #edd07a; /* sunlit sand — display text on dark photo only */
+
+  /* --- Motion (strong curves; built-ins are too weak) ---------------------- */
+  --ease-out-quart: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
+  --ease-cruise: cubic-bezier(0.37, 0.01, 0.63, 1); /* aircraft: steady, soft ends */
 }
 
 /* =============================================================================
@@ -49,6 +57,7 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem; /* anchors clear the fixed/sticky header */
     -webkit-text-size-adjust: 100%;
   }
 
@@ -157,4 +166,131 @@
 }
 @utility animate-drift {
   animation: drift 7s ease-in-out infinite;
+}
+
+/* =============================================================================
+   Cinematic hero — le-morne-photo.jpg
+   The photograph is a 512×512 composition: open sky upper-left, Le Morne
+   Brabant filling the right (summit top edge y≈46–75, left cliff edge falling
+   from (300,80) to (235,200)), treeline at y≈245, lagoon lower-left.
+   All flight coordinates below are in that 512-image space; HeroScene scales
+   them to whatever crop the viewport shows, so the aircraft flies the same
+   route through the scene at every aspect ratio.
+   ========================================================================== */
+
+/* One crop rule for every viewport: only one axis ever crops a square image.
+   x biases toward Le Morne on portrait screens; y keeps the summit + treeline
+   in frame on wide screens. */
+.hero-frame {
+  --hero-x: 0.62;
+  --hero-y: 0.14;
+}
+
+.hero-photo {
+  object-position: calc(var(--hero-x) * 100%) calc(var(--hero-y) * 100%);
+}
+
+/* The photograph establishes itself: a slow settle, origin near Le Morne. */
+.hero-kenburns {
+  animation: hero-settle 2600ms var(--ease-out-quart) both;
+  transform-origin: 60% 30%;
+}
+@keyframes hero-settle {
+  from { transform: scale(1.045); }
+  to { transform: scale(1); }
+}
+
+/* Aircraft trajectory: enters high in the open sky at left and cruises in the
+   corridor above the headline (image y≈70–96 across the text zone at common
+   crops), then dips and slips behind Le Morne's upper cliff at x≈280 (the
+   ridge matte occludes it: boundary y=104 at x=288). Rotation follows the
+   tangent — a gentle nose-down that steepens as it drops behind the ridge. */
+.hero-plane-path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  offset-path: path("M -70 70 C 60 76, 150 82, 240 96 C 272 104, 304 114, 348 128");
+  offset-rotate: auto;
+  animation: hero-flight 9500ms var(--ease-cruise) 1800ms both;
+}
+@keyframes hero-flight {
+  from { offset-distance: 0%; }
+  to { offset-distance: 100%; }
+}
+/* No motion-path support → no aircraft. The hero stands on its own. */
+@supports not (offset-path: path("M0 0 L1 1")) {
+  .hero-plane-path { display: none; }
+}
+
+/* Hero text: masked line reveals (padding absorbs serif descenders —
+   Fraunces italic tails need ~0.22em below the tight 1.02 line box). */
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.22em;
+  margin-bottom: -0.22em;
+}
+.hero-line-inner {
+  display: block;
+  transform: translateY(115%);
+  animation: hero-line-up 900ms var(--ease-out-quart) both;
+}
+@keyframes hero-line-up {
+  to { transform: translateY(0); }
+}
+
+.hero-fade {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: hero-fade-up 750ms var(--ease-out-quart) both;
+}
+@keyframes hero-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Film grain — unifies the layered hero and softens the upscale of the photo. */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  opacity: 0.06;
+  mix-blend-mode: overlay;
+}
+
+/* Scroll cue: a thin line that draws down, then releases. */
+.scroll-cue-line {
+  animation: scroll-cue 2400ms var(--ease-in-out-strong) 3s infinite;
+  transform: scaleY(0);
+}
+@keyframes scroll-cue {
+  0% { transform: scaleY(0); transform-origin: top; }
+  45% { transform: scaleY(1); transform-origin: top; }
+  55% { transform: scaleY(1); transform-origin: bottom; }
+  100% { transform: scaleY(0); transform-origin: bottom; }
+}
+
+/* =============================================================================
+   Scroll reveals — one quiet motion language for the whole site.
+   JS adds .reveal-hidden only to elements still below the fold, so no-JS
+   visitors and reduced-motion users always see content.
+   ========================================================================== */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal-shown {
+  transition:
+    opacity 700ms var(--ease-out-quart) var(--reveal-delay, 0ms),
+    transform 700ms var(--ease-out-quart) var(--reveal-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-plane-layer { display: none; }
+  .hero-kenburns { animation: none; }
+  .hero-line-inner,
+  .hero-fade { animation: none; opacity: 1; transform: none; }
+  .scroll-cue-line { animation: none; }
+  .reveal-hidden { opacity: 1; transform: none; }
 }
