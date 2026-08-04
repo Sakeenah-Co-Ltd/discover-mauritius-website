@@ -55,10 +55,11 @@ lib/                 Types, product helpers, schema (JSON-LD), utils
 
 ## Images
 One real photo is wired: `public/images/le-morne-photo.jpg` (home hero + `/tours` header + the
-South tour). Its companion `le-morne-ridge.png` is a sky-boundary cutout that lets the hero
-aircraft disappear behind Le Morne — regenerate it if the photo is ever replaced (see NOTES.md,
-2026-08-04). Every other slot still renders a branded gradient placeholder. To add a real photo,
-set `src` (and optionally `position`) on the slot and drop the file in `/public/images`. See
+South tour). It is a 3x sharpened upscale of the 512px original (see NOTES.md, 2026-08-04). The
+hero aircraft disappears behind Le Morne via `.hero-sky-clip` in `app/globals.css` — a polygon of
+the photo's sky region traced from its pixel data; re-trace it if the photo is ever replaced.
+Every other slot still renders a branded gradient placeholder. To add a real photo, set `src`
+(and optionally `position`) on the slot and drop the file in `/public/images`. See
 **`IMAGE-SHOTLIST.md`**.
 
 ## Project docs
