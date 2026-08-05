@@ -29,7 +29,21 @@ export function PageHeader({
       {image ? (
         <>
           <SmartImage slot={image} cover priority sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-br from-ink/85 via-ink/60 to-ocean/40" aria-hidden />
+          {image.src ? (
+            // Real photography: keep it visible — darken only where text sits.
+            <>
+              <div
+                className="absolute inset-0 bg-gradient-to-r from-ink/75 via-ink/45 to-ink/15"
+                aria-hidden
+              />
+              <div
+                className="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-ink/60 to-transparent"
+                aria-hidden
+              />
+            </>
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-ink/85 via-ink/60 to-ocean/40" aria-hidden />
+          )}
         </>
       ) : (
         <div className="absolute inset-0 bg-gradient-to-br from-ocean via-ocean to-ocean-deep" aria-hidden />

@@ -7,6 +7,7 @@ import { MapEmbed } from "@/components/ui/MapEmbed";
 import { Icon } from "@/components/ui/Icon";
 import { Button } from "@/components/ui/Button";
 import { BookingCard } from "@/components/tours/BookingCard";
+import { Reveal } from "@/components/ui/Reveal";
 import { StickyMobileCta } from "@/components/tours/StickyMobileCta";
 import { RelatedTours } from "@/components/tours/RelatedTours";
 import { QuoteCta } from "@/components/sections/QuoteCta";
@@ -110,8 +111,10 @@ export default async function TourDetailPage({
             <div>
               <h2 className="mb-4 text-2xl">Gallery</h2>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
-                {product.gallery.map((g) => (
-                  <SmartImage key={g.id} slot={g} hint aspect="4 / 3" sizes="(max-width: 768px) 50vw, 30vw" />
+                {product.gallery.map((g, i) => (
+                  <Reveal key={g.id} delay={i * 80}>
+                    <SmartImage slot={g} hint aspect="4 / 3" sizes="(max-width: 768px) 50vw, 30vw" />
+                  </Reveal>
                 ))}
               </div>
             </div>

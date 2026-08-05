@@ -21,10 +21,10 @@ export function Logo({ onDark = false, className }: { onDark?: boolean; classNam
         </svg>
       </span>
       <span className="flex flex-col leading-none">
-        <span className={cn("font-display text-lg font-semibold tracking-tight", onDark ? "text-white" : "text-ink")}>
+        <span className={cn("whitespace-nowrap font-display text-lg font-semibold tracking-tight", onDark ? "text-white" : "text-ink")}>
           Discover Mauritius
         </span>
-        <span className={cn("mt-1 text-[10px] font-semibold uppercase tracking-[0.18em]", onDark ? "text-white/60" : "text-muted")}>
+        <span className={cn("mt-1 whitespace-nowrap text-[10px] font-semibold uppercase tracking-[0.18em]", onDark ? "text-white/60" : "text-muted")}>
           by N.K. Taher Co Ltd
         </span>
       </span>

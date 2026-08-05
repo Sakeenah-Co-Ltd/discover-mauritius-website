@@ -24,13 +24,16 @@ export function Header() {
     setServicesOpen(false);
   }, [pathname]);
 
-  // Subtle elevation once scrolled.
+  // Home: stay transparent over the hero photograph until it is mostly
+  // scrolled past. Everywhere else: subtle elevation almost immediately.
+  const isHome = pathname === "/";
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const threshold = () => (isHome ? window.innerHeight * 0.55 : 8);
+    const onScroll = () => setScrolled(window.scrollY > threshold());
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isHome]);
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
@@ -63,21 +66,27 @@ export function Header() {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
+  // Over the home hero photograph the bar is transparent with white text;
+  // it becomes the white bar once scrolled (or when the mobile menu opens).
+  const overlay = isHome && !scrolled && !mobileOpen;
+
   return (
-    <header className="sticky top-0 z-50">
+    <header className={cn("z-50", isHome ? "fixed inset-x-0 top-0" : "sticky top-0")}>
       {/* Lagoon-line brand ribbon */}
       <div className="h-1 w-full" style={{ backgroundImage: "var(--gradient-lagoon-line)" }} aria-hidden />
 
       <div
         className={cn(
-          "border-b transition-all duration-300",
-          scrolled
-            ? "border-hairline bg-white/90 backdrop-blur-md shadow-card"
-            : "border-transparent bg-white",
+          "border-b transition-[background-color,border-color,box-shadow] duration-300",
+          overlay
+            ? "border-transparent bg-transparent"
+            : scrolled
+              ? "border-hairline bg-white/90 backdrop-blur-md shadow-card"
+              : "border-transparent bg-white",
         )}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
-          <Logo />
+          <Logo onDark={overlay} />
 
           {/* Desktop nav */}
           <nav aria-label="Primary" className="hidden lg:block">
@@ -88,8 +97,12 @@ export function Header() {
                     <button
                       type="button"
                       className={cn(
-                        "flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors hover:bg-lagoon-mist",
-                        item.children.some((c) => isActive(c.href)) && "text-ocean",
+                        "flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors",
+                        overlay
+                          ? "text-white/90 hover:bg-white/10 hover:text-white"
+                          : "hover:bg-lagoon-mist",
+                        item.children.some((c) => isActive(c.href)) &&
+                          (overlay ? "text-white" : "text-ocean"),
                       )}
                       aria-expanded={servicesOpen}
                       aria-haspopup="true"
@@ -127,12 +140,22 @@ export function Header() {
                     <Link
                       href={item.href}
                       className={cn(
-                        "rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors hover:bg-lagoon-mist",
-                        isActive(item.href) && "text-ocean",
+                        "relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors",
+                        overlay
+                          ? "text-white/90 hover:bg-white/10 hover:text-white"
+                          : "hover:bg-lagoon-mist",
+                        isActive(item.href) && (overlay ? "text-white" : "text-ocean"),
                       )}
                       aria-current={isActive(item.href) ? "page" : undefined}
                     >
                       {item.label}
+                      {isActive(item.href) ? (
+                        <span
+                          aria-hidden
+                          className="absolute inset-x-4 bottom-0.5 h-0.5 rounded-full"
+                          style={{ backgroundImage: "var(--gradient-lagoon-line)" }}
+                        />
+                      ) : null}
                     </Link>
                   </li>
                 ),
@@ -141,14 +164,21 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-2">
-            <Button href="/contact" size="sm" className="hidden sm:inline-flex">
-              {copy.ctas.planHoliday}
-            </Button>
+            {/* Wrapper controls visibility — the Button's own `inline-flex`
+                display class would otherwise override `hidden` at any width. */}
+            <span className="hidden sm:block">
+              <Button href="/contact" size="sm">
+                {copy.ctas.planHoliday}
+              </Button>
+            </span>
 
             {/* Mobile toggle */}
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors hover:bg-lagoon-mist lg:hidden"
+              className={cn(
+                "flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
+                overlay ? "text-white hover:bg-white/10" : "text-ink hover:bg-lagoon-mist",
+              )}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen((v) => !v)}

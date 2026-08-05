@@ -53,7 +53,14 @@ export const products: Product[] = [
     ],
     tags: ["Nature", "Culture", "Scenery", "Family-friendly"],
     mapArea: { label: "South-west Mauritius — Chamarel & Grand Bassin", query: "Seven Coloured Earths, Chamarel, Mauritius" },
-    hero: { id: "south-chamarel-hero", alt: "Aerial view of the Seven Coloured Earths dunes at Chamarel, southern Mauritius", tone: "sunset", orientation: "wide" },
+    hero: {
+      id: "south-le-morne-hero",
+      alt: "Le Morne Brabant rising over the turquoise lagoon and palm-lined beach on the south-west coast of Mauritius",
+      tone: "sunset",
+      orientation: "wide",
+      src: "/images/le-morne-photo.jpg",
+      position: "50% 20%", // keeps the summit visible in both the card (4:3) and the detail header (letterbox)
+    },
     gallery: [
       { id: "south-grand-bassin", alt: "Sacred lake of Grand Bassin with temple statues, Mauritius", tone: "forest", orientation: "landscape" },
       { id: "south-chamarel-falls", alt: "Chamarel Waterfall plunging into forested gorge", tone: "forest", orientation: "portrait" },
@@ -310,7 +317,7 @@ export const products: Product[] = [
     hero: { id: "full-island-hero", alt: "Coastal road winding along the Mauritius shoreline with mountains inland", tone: "ocean", orientation: "wide" },
     gallery: [
       { id: "island-beach", alt: "Empty white-sand beach with turquoise lagoon", tone: "lagoon", orientation: "landscape" },
-      { id: "island-mountain", alt: "Le Morne Brabant mountain rising above the lagoon", tone: "ocean", orientation: "portrait" },
+      { id: "island-mountain", alt: "Le Morne Brabant mountain rising above the lagoon", tone: "ocean", orientation: "portrait", src: "/images/le-morne-photo.jpg", position: "66% 30%" },
       { id: "island-food", alt: "Mauritian street food and tropical fruit", tone: "sunset", orientation: "square" },
     ],
     draft: true,

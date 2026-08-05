@@ -10,7 +10,8 @@ type Size = "sm" | "md" | "lg";
 const base =
   "inline-flex items-center justify-center gap-2 rounded-full font-semibold tracking-tight " +
   "transition-all duration-200 ease-out focus-visible:outline-3 focus-visible:outline-offset-2 " +
-  "disabled:opacity-60 disabled:pointer-events-none select-none whitespace-nowrap";
+  "disabled:opacity-60 disabled:pointer-events-none select-none whitespace-nowrap " +
+  "active:scale-[0.98]";
 
 const variants: Record<Variant, string> = {
   // Single action accent — gold fill behind ink text (AA-safe; the one CTA colour).

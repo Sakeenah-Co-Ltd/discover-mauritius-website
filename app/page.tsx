@@ -1,4 +1,5 @@
 import { Hero } from "@/components/home/Hero";
+import { CategoryCards } from "@/components/sections/CategoryCards";
 import { FeaturedTours } from "@/components/sections/FeaturedTours";
 import { ServicesSection } from "@/components/sections/ServicesSection";
 import { WhyUs } from "@/components/sections/WhyUs";
@@ -11,6 +12,7 @@ export default function HomePage() {
   return (
     <>
       <Hero />
+      <CategoryCards />
       <FeaturedTours />
       <ServicesSection waveInto="canvas" />
       <WhyUs waveInto="ocean" />

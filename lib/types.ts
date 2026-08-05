@@ -30,6 +30,8 @@ export interface ImageSlot {
   orientation?: Orientation;
   /** real asset path once supplied, e.g. "/images/tours/south-hero.jpg" */
   src?: string | null;
+  /** CSS object-position for art-directing the crop, e.g. "50% 25%" */
+  position?: string;
 }
 
 export interface ItineraryStop {

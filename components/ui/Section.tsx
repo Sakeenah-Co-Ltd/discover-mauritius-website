@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import type { Surface } from "@/lib/types";
 import { ReefWave } from "@/components/ui/ReefWave";
+import { Reveal } from "@/components/ui/Reveal";
 
 const SURFACE: Record<Surface, string> = {
   canvas: "bg-white text-ink",
@@ -98,7 +99,7 @@ export function SectionHeader({
   as: TitleTag = "h2",
 }: SectionHeaderProps) {
   return (
-    <div
+    <Reveal
       className={cn(
         "flex flex-col gap-4",
         align === "center" ? "items-center text-center mx-auto max-w-2xl" : "items-start text-left max-w-3xl",
@@ -120,6 +121,6 @@ export function SectionHeader({
           {subtitle}
         </p>
       ) : null}
-    </div>
+    </Reveal>
   );
 }
