@@ -23,7 +23,7 @@ radius 20px, CTA pill + arrow-circle pattern, featured grid fix). Interior pages
 
 ## 2. In flight
 
-- **Branch:** `feature/hero-template-upgrade` (off `origin/main` at `39937e8`). Not yet merged.
+- **Branch:** `feature/hero-template-upgrade` (off `origin/main` at `39937e8`). **PR #4:** https://github.com/Sakeenah-Co-Ltd/discover-mauritius-website/pull/4 (open, awaiting hero approval + review). Note: the repo now lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it.
 - **Verified** (2026-08-18, local production build, headless Chrome 1440×900 + 390×844):
   `npm run build` passes (28/28 pages); no console errors on `/`, `/tours`, `/tours/[slug]`,
   `/about`, `/airport-transfers`, `/faq`, `/contact`; no horizontal overflow at 390px; no broken
