@@ -1,133 +1,117 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/Button";
-import { Icon } from "@/components/ui/Icon";
+import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import { TrustStrip } from "@/components/ui/TrustStrip";
-import { HeroScene } from "@/components/home/HeroScene";
+import { HeroPlanner } from "@/components/home/HeroPlanner";
+import { getTours, getByType } from "@/lib/products";
 import { copy } from "@/content/copy";
 
 /**
- * Cinematic opening built around le-morne-photo.jpg (see globals.css for the
- * composition notes). The sequence: photograph settles → eyebrow → headline
- * lines rise out of their masks → supporting copy and CTAs → the aircraft
- * crosses the open sky and disappears behind Le Morne. Text sits bottom-left
- * over the treeline/lagoon, so the sky — and the flight — stay unobstructed,
- * and Le Morne itself is never covered.
+ * Home hero — light, airy "floating card" composition (NOTES.md, 2026-08-18):
+ * a rounded, inset panel on the white canvas with a soft lagoon-mist gradient;
+ * headline + supporting copy + CTA pair on the left; the photograph fills the
+ * right half on large screens and dissolves into the gradient (on small
+ * screens it becomes an inset panel under the copy); the trip planner overlaps
+ * the card's bottom edge and leads into the featured tours.
+ *
+ * Motion: the photograph settles (Ken Burns), headline lines rise out of their
+ * masks, then copy → CTAs → planner fade up in sequence. Reduced-motion users
+ * see everything immediately (globals.css).
  */
 export function Hero() {
   const { hero } = copy.home;
+  const tourOptions = getTours().map((t) => ({ label: t.title, value: t.slug }));
+  const packageOptions = getByType("package").map((p) => ({ label: p.title, value: p.slug }));
+
   return (
-    <section className="relative isolate flex min-h-[100svh] flex-col overflow-hidden bg-ink">
-      {/* ---- Photograph + aircraft (share the Ken Burns settle) ---- */}
-      <div className="hero-frame absolute inset-0">
-        <div className="hero-kenburns absolute inset-0">
-          <Image
-            src="/images/le-morne-photo.jpg"
-            alt="Le Morne Brabant rising over a turquoise lagoon, white-sand beach and palm forest in south-west Mauritius"
-            fill
-            priority
-            quality={90}
-            sizes="100vw"
-            className="hero-photo object-cover"
-          />
-          <HeroScene />
-        </div>
-
-        {/* Compositional scrims — kept light so the photograph stays the hero. */}
-        <div
-          aria-hidden
-          className="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-ink/50 to-transparent"
-        />
-        <div
-          aria-hidden
-          className="absolute inset-x-0 bottom-0 h-[58%] bg-gradient-to-t from-ink/80 via-ink/30 to-transparent"
-        />
-        <div
-          aria-hidden
-          className="hidden md:block absolute inset-y-0 left-0 w-[45%] bg-gradient-to-r from-ink/30 to-transparent"
-        />
-        <div aria-hidden className="hero-grain" />
-      </div>
-
-      {/* ---- Composition: text anchored bottom-left, sky left open ---- */}
-      <div className="container-page relative mt-auto pb-20 pt-40 md:pb-24">
-        <div className="max-w-[44rem]">
-          <span
-            className="hero-fade eyebrow text-lagoon"
-            style={{ animationDelay: "400ms" }}
-          >
-            <span aria-hidden className="h-px w-6 rounded-full bg-lagoon" />
-            {hero.eyebrow}
-          </span>
-
-          <h1 className="mt-5 font-medium text-white [text-shadow:0_1px_24px_rgba(14,42,56,0.35)] text-[2.6rem] leading-[1.04] sm:text-6xl md:text-[4.6rem] md:leading-[1.02] md:tracking-[-0.015em]">
-            <span className="hero-line">
-              <span className="hero-line-inner" style={{ animationDelay: "600ms" }}>
-                {hero.title}
+    <section className="relative bg-white">
+      {/* ---- Floating hero card ---- */}
+      <div className="px-2 pt-2 sm:px-3 sm:pt-3 md:px-5 md:pt-4">
+        <div className="hero-card relative isolate overflow-hidden rounded-[28px] md:rounded-[36px]">
+          {/* Copy column */}
+          <div className="container-page pt-28 md:pt-32 lg:pb-52 lg:pt-40">
+            <div className="relative z-10 lg:max-w-[52%]">
+              <span className="hero-fade eyebrow" style={{ animationDelay: "350ms" }}>
+                <span
+                  aria-hidden
+                  className="h-px w-6 rounded-full"
+                  style={{ backgroundImage: "var(--gradient-lagoon-line)" }}
+                />
+                {hero.eyebrow}
               </span>
-            </span>
-            <span className="hero-line">
-              <span
-                className="hero-line-inner font-display italic text-gold-soft"
-                style={{ animationDelay: "760ms" }}
+
+              <h1 className="mt-5 text-[2.6rem] font-medium leading-[1.04] text-ink sm:text-[3.4rem] md:text-6xl md:leading-[1.02] lg:text-[3.5rem] xl:text-[3.9rem]">
+                <span className="hero-line">
+                  <span className="hero-line-inner" style={{ animationDelay: "550ms" }}>
+                    {hero.title}
+                  </span>
+                </span>
+                <span className="hero-line">
+                  <span
+                    className="hero-line-inner font-display italic text-ocean"
+                    style={{ animationDelay: "700ms" }}
+                  >
+                    {hero.titleAccent}
+                  </span>
+                </span>
+              </h1>
+
+              <p
+                className="hero-fade mt-6 max-w-[34rem] text-[1.05rem] leading-relaxed text-muted md:text-lg"
+                style={{ animationDelay: "950ms" }}
               >
-                {hero.titleAccent}
-              </span>
-            </span>
-          </h1>
+                {hero.subtitle}
+              </p>
 
-          <p
-            className="hero-fade mt-6 max-w-xl text-lg leading-relaxed text-white/90"
-            style={{ animationDelay: "1000ms" }}
-          >
-            {hero.subtitle}
-          </p>
-
-          <div
-            className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
-            style={{ animationDelay: "1200ms" }}
-          >
-            <Button href="/tours" size="lg" icon="arrow-right">
-              {copy.ctas.exploreTours}
-            </Button>
-            <Button href="/contact" size="lg" variant="onDark">
-              {copy.ctas.planHoliday}
-            </Button>
+              <div
+                className="hero-fade mt-8 flex flex-wrap items-center gap-3 sm:gap-4"
+                style={{ animationDelay: "1100ms" }}
+              >
+                <span className="inline-flex items-center gap-2">
+                  <Button href="/tours" size="lg">
+                    {copy.ctas.exploreTours}
+                  </Button>
+                  <ArrowCircle href="/tours" size="lg" />
+                </span>
+                <Button href="/contact" variant="ghost" size="lg" icon="arrow-right">
+                  {copy.ctas.planHoliday}
+                </Button>
+              </div>
+            </div>
           </div>
 
-          <p
-            className="hero-fade mt-8 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-medium text-white/80"
-            style={{ animationDelay: "1400ms" }}
-          >
-            <Icon name="shield" size={15} className="text-lagoon" />
-            Licensed Tour Operator
-            <span aria-hidden className="text-white/35">·</span>
-            IATA Accredited
-            <span aria-hidden className="text-white/35">·</span>
-            Since 2019
-          </p>
+          {/* Photograph — inset panel under the copy on small screens; on large
+              screens the wrapper dissolves (lg:contents) and the photo pins to
+              the card's right half, masked into the gradient. */}
+          <div className="container-page pb-28 lg:contents">
+            <div
+              className="hero-fade relative mt-10 aspect-[16/10] overflow-hidden rounded-[22px] shadow-float sm:aspect-[2/1] lg:hero-photo-mask lg:absolute lg:inset-y-0 lg:right-0 lg:mt-0 lg:aspect-auto lg:w-[52%] lg:rounded-none lg:shadow-none"
+              style={{ animationDelay: "150ms" }}
+            >
+              <div className="hero-kenburns absolute inset-0">
+                <Image
+                  src="/images/le-morne-photo.jpg"
+                  alt="Le Morne Brabant rising over a turquoise lagoon, white-sand beach and palm forest in south-west Mauritius"
+                  fill
+                  priority
+                  quality={88}
+                  sizes="(min-width: 1024px) 55vw, 100vw"
+                  className="object-cover object-[55%_35%] lg:object-[62%_30%]"
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Scroll cue — desktop only, appears after the text has landed. */}
-      <div aria-hidden className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 md:block">
-        <div
-          className="hero-fade flex flex-col items-center gap-2"
-          style={{ animationDelay: "2000ms" }}
-        >
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/60">
-            Scroll
-          </span>
-          <span className="h-10 w-px overflow-hidden bg-white/15">
-            <span className="scroll-cue-line block h-full w-full bg-white/70" />
-          </span>
-        </div>
+      {/* ---- Trip planner: overlaps the card's bottom edge ---- */}
+      <div className="container-page relative z-10 -mt-20 lg:-mt-32">
+        <HeroPlanner tourOptions={tourOptions} packageOptions={packageOptions} />
       </div>
 
-      {/* Trust strip band under the hero */}
-      <div className="relative border-t border-white/10 bg-white/95 backdrop-blur">
-        <div className="container-page py-5">
-          <TrustStrip variant="bar" />
-        </div>
+      {/* ---- Trust furniture, quiet ---- */}
+      <div className="container-page pt-7 md:pt-9">
+        <TrustStrip variant="bar" />
       </div>
     </section>
   );

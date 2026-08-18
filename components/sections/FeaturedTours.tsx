@@ -1,6 +1,7 @@
 import { Section, SectionHeader } from "@/components/ui/Section";
 import { TourCard } from "@/components/cards/TourCard";
 import { Button } from "@/components/ui/Button";
+import { ArrowCircle } from "@/components/ui/ArrowCircle";
 import { Reveal } from "@/components/ui/Reveal";
 import { getFeatured } from "@/lib/products";
 import { copy } from "@/content/copy";
@@ -17,7 +18,7 @@ export function FeaturedTours() {
   const [lead, ...rest] = tours;
 
   return (
-    <Section surface="canvas" waveInto="lagoon-mist">
+    <Section surface="canvas" waveInto="lagoon-mist" spacing="md">
       <div className="flex flex-col gap-10">
         <div className="flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">
           <SectionHeader
@@ -27,9 +28,12 @@ export function FeaturedTours() {
             subtitle={copy.home.featured.subtitle}
             className="md:max-w-2xl"
           />
-          <Button href="/tours" variant="secondary" icon="arrow-right" className="shrink-0">
-            View all tours
-          </Button>
+          <span className="inline-flex shrink-0 items-center gap-2">
+            <Button href="/tours" variant="secondary">
+              {copy.ctas.viewAllTours}
+            </Button>
+            <ArrowCircle href="/tours" variant="dark" />
+          </span>
         </div>
 
         {lead ? (

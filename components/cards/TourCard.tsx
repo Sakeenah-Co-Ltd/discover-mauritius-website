@@ -70,7 +70,7 @@ export function TourCard({
         </span>
       </Link>
 
-      <div className={cn("flex flex-1 flex-col gap-3 p-5", feature && "md:p-7")}>
+      <div className={cn("flex flex-1 flex-col gap-3 p-5", feature && "md:p-7 lg:flex-none")}>
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-xs font-semibold uppercase tracking-wider text-lagoon-deep">
             {product.groupType}

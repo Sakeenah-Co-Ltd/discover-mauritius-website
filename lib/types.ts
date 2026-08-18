@@ -72,10 +72,17 @@ export interface Product {
   draft?: boolean;
 }
 
+/** Keys the quote form understands (QuoteForm `service` field + `?service=` prefill). */
+export type QuoteServiceKey = "tour" | "transfer" | "package" | "flights" | "hotel";
+
 export interface Service {
   slug: string;
   /** short nav/label name */
   name: string;
+  /** one-word label for tight UI (hero planner tabs) */
+  shortName: string;
+  /** which quote-form service this maps to */
+  quoteKey: QuoteServiceKey;
   /** marketing title */
   title: string;
   hook: string;
@@ -128,4 +135,6 @@ export type IconName =
   | "sun"
   | "wave"
   | "menu"
-  | "close";
+  | "close"
+  | "search"
+  | "arrow-up-right";
