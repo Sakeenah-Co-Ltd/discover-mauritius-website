@@ -28,7 +28,15 @@ const methods: { icon: IconName; label: string; value: string; href: string; ext
 export default async function ContactPage({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string; item?: string }>;
+  searchParams: Promise<{
+    service?: string;
+    item?: string;
+    arrival?: string;
+    departure?: string;
+    flexible?: string;
+    adults?: string;
+    children?: string;
+  }>;
 }) {
   const sp = await searchParams;
 
@@ -45,7 +53,15 @@ export default async function ContactPage({
         <div className="grid gap-10 lg:grid-cols-[1fr_360px] lg:gap-14">
           {/* Form (primary) */}
           <div>
-            <QuoteForm initialService={sp.service ?? ""} initialItem={sp.item ?? ""} />
+            <QuoteForm
+              initialService={sp.service ?? ""}
+              initialItem={sp.item ?? ""}
+              initialArrival={sp.arrival}
+              initialDeparture={sp.departure}
+              initialFlexible={sp.flexible}
+              initialAdults={sp.adults}
+              initialChildren={sp.children}
+            />
           </div>
 
           {/* Contact details */}

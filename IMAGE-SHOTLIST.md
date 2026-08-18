@@ -27,7 +27,7 @@ placeholder for an optimized `next/image` automatically — no code changes.
 ## Global / page heroes
 | Slot id | Page | Subject | Orientation |
 |---|---|---|---|
-| `home-hero` | Home | Aerial: turquoise lagoon meeting white sand + green mountains | Wide |
+| `home-hero` | Home | Aerial: turquoise lagoon meeting white sand + green mountains. **Since 2026-08-18 the hero shows this as a near-square right-half inset on desktop (left third fades out) and a 16:10 panel on mobile — keep the subject on the right, low detail on the left, ≥2000px long edge** | Square-ish / wide (both crops must work) |
 | `tours-hero` | /tours | Panoramic Mauritius coastline, lagoon + peaks | Wide |
 | `transfers-hero` | /airport-transfers | Clean A/C vehicle on a scenic coastal road at sunrise | Wide |
 | `packages-hero` | /packages | Beachfront resort + lagoon at golden hour | Wide |

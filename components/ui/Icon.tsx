@@ -107,6 +107,13 @@ const OUTLINE: Partial<Record<IconName, ReactNode>> = {
     </>
   ),
   menu: <path d="M3 6h18M3 12h18M3 18h18" />,
+  search: (
+    <>
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </>
+  ),
+  "arrow-up-right": <path d="M7 17 17 7M8 7h9v9" />,
 };
 
 const FILLED: IconName[] = ["star", "whatsapp", "facebook", "sparkles"];

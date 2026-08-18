@@ -1,5 +1,8 @@
 # PENDING-CLARIFICATIONS
 
+> **Superseded (2026-08-18):** the live, prioritised checklist of everything still needed from the
+> client is now **`NEXT_SESSION_REQUIREMENTS.md`**. This file is kept as the original question log.
+
 Open questions awaiting answers from the client. **The build proceeds now with clearly-marked
 placeholders**; real content swaps in later without touching components (typed content + copy layers).
 Every placeholder is cross-referenced in `HANDOVER.md` (Phase 7).

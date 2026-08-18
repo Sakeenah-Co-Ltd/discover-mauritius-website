@@ -82,28 +82,62 @@ function buildSummary(d: FormState) {
     .join("\n");
 }
 
+const ISO_DATE = /^\d{4}-\d{2}-\d{2}$/;
+const cleanDate = (v?: string) => (v && ISO_DATE.test(v) ? v : "");
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** "2026-11-03" → "3 Nov 2026" without touching Date/timezones (safe for SSR). */
+const fmtDate = (iso: string) => {
+  const [y, m, d] = iso.split("-").map(Number);
+  return m >= 1 && m <= 12 ? `${d} ${MONTHS[m - 1]} ${y}` : iso;
+};
+const cleanInt = (v: string | undefined, fallback: number, min: number, max: number) => {
+  const n = Number.parseInt(v ?? "", 10);
+  return Number.isFinite(n) ? Math.min(max, Math.max(min, n)) : fallback;
+};
+
 export function QuoteForm({
   initialService = "",
   initialItem = "",
+  initialArrival,
+  initialDeparture,
+  initialFlexible,
+  initialAdults,
+  initialChildren,
 }: {
   initialService?: string;
   initialItem?: string;
+  /** Pre-fill from the home-page trip planner (`?arrival=&departure=&flexible=&adults=&children=`). */
+  initialArrival?: string;
+  initialDeparture?: string;
+  initialFlexible?: string;
+  initialAdults?: string;
+  initialChildren?: string;
 }) {
   const validService = SERVICES.some((s) => s.key === initialService)
     ? (initialService as ServiceKey)
     : "";
+  const arrival = cleanDate(initialArrival);
+  const departure = cleanDate(initialDeparture);
+  const flexible = initialFlexible === "1" || initialFlexible === "true";
+  const adults = cleanInt(initialAdults, 2, 1, 20);
+  const children = cleanInt(initialChildren, 0, 0, 20);
 
-  const [step, setStep] = useState(0);
+  // Arriving from the hero planner with a service AND usable dates: steps 1–2
+  // are already answered, so start at "Interests & budget" (Back still works).
+  const datesUsable = flexible || (arrival !== "" && (departure === "" || departure >= arrival));
+  const startStep = validService && datesUsable ? 2 : 0;
+
+  const [step, setStep] = useState(startStep);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [data, setData] = useState<FormState>({
     service: validService,
-    item: initialItem,
-    arrival: "",
-    departure: "",
-    flexible: false,
-    adults: 2,
-    children: 0,
+    item: initialItem.slice(0, 120),
+    arrival,
+    departure,
+    flexible,
+    adults,
+    children,
     interests: [],
     budget: "",
     name: "",
@@ -205,6 +239,34 @@ export function QuoteForm({
           </li>
         ))}
       </ol>
+
+      {/* Recap when the home-page planner pre-filled steps 1–2 */}
+      {startStep === 2 && step >= 2 ? (
+        <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-1 rounded-xl bg-lagoon-mist px-4 py-2.5 text-sm text-ink">
+          <Icon name="check" size={15} className="text-lagoon-deep" />
+          <span>
+            <span className="font-semibold">{SERVICES.find((s) => s.key === data.service)?.label}</span>
+            {data.item ? ` · ${prettify(data.item)}` : ""}
+            {" · "}
+            {data.flexible
+              ? "Flexible dates"
+              : `${fmtDate(data.arrival)}${data.departure ? ` → ${fmtDate(data.departure)}` : ""}`}
+            {" · "}
+            {data.adults} adult{data.adults === 1 ? "" : "s"}
+            {data.children ? `, ${data.children} child${data.children === 1 ? "" : "ren"}` : ""}
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setErrors({});
+              setStep(0);
+            }}
+            className="ml-auto font-semibold text-ocean underline-offset-2 hover:underline"
+          >
+            Edit
+          </button>
+        </div>
+      ) : null}
 
       {/* Step 0 — service */}
       {step === 0 && (

@@ -36,7 +36,8 @@ app/                 Routes (Home, /tours, /tours/[slug], service pages, About, 
 components/
   layout/            Header, Footer, floating WhatsApp button
   ui/                Design-system primitives (Button, Section, SmartImage, Icon, PageHeader, …)
-  sections/          Reusable page sections (Hero pieces, FeaturedTours, Faqs, QuoteCta, …)
+  home/              Home hero (`Hero`) + the tabbed trip planner (`HeroPlanner`, GET form → /contact)
+  sections/          Reusable page sections (FeaturedTours, ServicesSection, Faqs, QuoteCta, …)
   cards/ tours/ services/ contact/ legal/ seo/
 content/             ← EDIT HERE: site facts, copy, tours, services, faqs, testimonials
 lib/                 Types, product helpers, schema (JSON-LD), utils
@@ -55,17 +56,18 @@ lib/                 Types, product helpers, schema (JSON-LD), utils
 
 ## Images
 One real photo is wired: `public/images/le-morne-photo.jpg` (home hero + `/tours` header + the
-South tour). It is a 3x sharpened upscale of the 512px original (see NOTES.md, 2026-08-04). The
-hero aircraft disappears behind Le Morne via `.hero-sky-clip` in `app/globals.css` — a polygon of
-the photo's sky region traced from its pixel data; re-trace it if the photo is ever replaced.
-Every other slot still renders a branded gradient placeholder. To add a real photo, set `src`
+South tour). It is a 3x sharpened upscale of the 512px original (see NOTES.md, 2026-08-04). On the
+home hero it is shown as a right-half inset that dissolves into the card gradient (desktop) or an
+inset panel under the copy (mobile) — see NOTES.md, 2026-08-18. Every other slot still renders a
+branded gradient placeholder. To add a real photo, set `src`
 (and optionally `position`) on the slot and drop the file in `/public/images`. See
 **`IMAGE-SHOTLIST.md`**.
 
 ## Project docs
 - **`NOTES.md`** — design analysis of the references + the design system + signature element (design log).
 - **`PENDING-CLARIFICATIONS.md`** — open questions from the client.
-- **`HANDOVER.md`** — every placeholder and exactly where to replace it.
+- **`NEXT_SESSION_REQUIREMENTS.md`** — client-facing checklist: everything still needed from the owner, by priority.
+- **`HANDOVER.md`** — developer state: branch/PR, what is verified, where things live in code.
 - **`IMAGE-SHOTLIST.md`** — the photography brief.
 - **`SEO-NOTES.md`** — technical SEO built in + post-launch growth playbook.
 

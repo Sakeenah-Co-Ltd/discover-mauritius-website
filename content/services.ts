@@ -7,6 +7,8 @@ import type { Service } from "@/lib/types";
 export const services: Service[] = [
   {
     slug: "tours",
+    shortName: "Tours",
+    quoteKey: "tour",
     name: "Private & Guided Tours",
     title: "Private & Guided Island Tours",
     hook: "See the real Mauritius with an experienced local guide.",
@@ -25,6 +27,8 @@ export const services: Service[] = [
   },
   {
     slug: "airport-transfers",
+    shortName: "Transfers",
+    quoteKey: "transfer",
     name: "Airport Transfers",
     title: "Airport Transfers, Anywhere in Mauritius",
     hook: "Reliable pickup and drop-off, anywhere on the island.",
@@ -43,6 +47,8 @@ export const services: Service[] = [
   },
   {
     slug: "packages",
+    shortName: "Packages",
+    quoteKey: "package",
     name: "Holiday Packages",
     title: "Complete Mauritius Holiday Packages",
     hook: "One team plans your whole trip — flights to farewell.",
@@ -61,6 +67,8 @@ export const services: Service[] = [
   },
   {
     slug: "air-ticketing",
+    shortName: "Flights",
+    quoteKey: "flights",
     name: "Air Ticketing",
     title: "Air Ticketing by an IATA-Accredited Agency",
     hook: "Flights booked by an IATA-accredited travel agency.",
@@ -79,6 +87,8 @@ export const services: Service[] = [
   },
   {
     slug: "hotel-booking",
+    shortName: "Hotels",
+    quoteKey: "hotel",
     name: "Hotel Assistance",
     title: "Hotel Booking Assistance",
     hook: "The right hotel for your budget and plans.",

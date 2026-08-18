@@ -24,11 +24,11 @@ export function Header() {
     setServicesOpen(false);
   }, [pathname]);
 
-  // Home: stay transparent over the hero photograph until it is mostly
+  // Home: stay transparent over the light hero card until it is mostly
   // scrolled past. Everywhere else: subtle elevation almost immediately.
   const isHome = pathname === "/";
   useEffect(() => {
-    const threshold = () => (isHome ? window.innerHeight * 0.55 : 8);
+    const threshold = () => (isHome ? window.innerHeight * 0.45 : 8);
     const onScroll = () => setScrolled(window.scrollY > threshold());
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -66,8 +66,8 @@ export function Header() {
 
   const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
-  // Over the home hero photograph the bar is transparent with white text;
-  // it becomes the white bar once scrolled (or when the mobile menu opens).
+  // Over the home hero card the bar is transparent (ink text — the hero is
+  // light); it becomes the white bar once scrolled (or when the menu opens).
   const overlay = isHome && !scrolled && !mobileOpen;
 
   return (
@@ -86,7 +86,7 @@ export function Header() {
         )}
       >
         <div className="container-page flex h-16 items-center justify-between gap-4 md:h-[72px]">
-          <Logo onDark={overlay} />
+          <Logo />
 
           {/* Desktop nav */}
           <nav aria-label="Primary" className="hidden lg:block">
@@ -98,11 +98,8 @@ export function Header() {
                       type="button"
                       className={cn(
                         "flex items-center gap-1 rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors",
-                        overlay
-                          ? "text-white/90 hover:bg-white/10 hover:text-white"
-                          : "hover:bg-lagoon-mist",
-                        item.children.some((c) => isActive(c.href)) &&
-                          (overlay ? "text-white" : "text-ocean"),
+                        overlay ? "hover:bg-white/60" : "hover:bg-lagoon-mist",
+                        item.children.some((c) => isActive(c.href)) && "text-ocean",
                       )}
                       aria-expanded={servicesOpen}
                       aria-haspopup="true"
@@ -141,10 +138,8 @@ export function Header() {
                       href={item.href}
                       className={cn(
                         "relative rounded-full px-4 py-2 text-[0.95rem] font-medium transition-colors",
-                        overlay
-                          ? "text-white/90 hover:bg-white/10 hover:text-white"
-                          : "hover:bg-lagoon-mist",
-                        isActive(item.href) && (overlay ? "text-white" : "text-ocean"),
+                        overlay ? "hover:bg-white/60" : "hover:bg-lagoon-mist",
+                        isActive(item.href) && "text-ocean",
                       )}
                       aria-current={isActive(item.href) ? "page" : undefined}
                     >
@@ -176,8 +171,8 @@ export function Header() {
             <button
               type="button"
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full transition-colors lg:hidden",
-                overlay ? "text-white hover:bg-white/10" : "text-ink hover:bg-lagoon-mist",
+                "flex h-10 w-10 items-center justify-center rounded-full text-ink transition-colors lg:hidden",
+                overlay ? "hover:bg-white/60" : "hover:bg-lagoon-mist",
               )}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}

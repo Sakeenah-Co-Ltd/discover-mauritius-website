@@ -8,6 +8,7 @@ export const copy = {
   ctas: {
     planHoliday: "Plan My Holiday",
     exploreTours: "Explore Tours",
+    viewAllTours: "View all tours",
     requestQuote: "Request Quote",
     requestPackage: "Request Your Mauritius Package",
     bookTransfer: "Book Airport Transfer",
@@ -19,11 +20,31 @@ export const copy = {
 
   home: {
     hero: {
-      eyebrow: "Discover Mauritius · by N.K. Taher Co Ltd",
+      eyebrow: "Easy. Trusted. Affordable.", // client tagline (content/site.ts)
       title: "The real Mauritius,",
       titleAccent: "planned without the hassle.",
       subtitle:
         "Authentic island tours, airport transfers and complete holiday packages — arranged by a licensed, IATA-accredited local team. You tell us your dates and dreams; we send back a personalized plan.",
+    },
+    planner: {
+      ariaLabel: "Plan your trip",
+      flexible: "My dates are flexible",
+      arrival: "Arrival",
+      departure: "Departure",
+      travellers: "Travellers",
+      adults: "Adults",
+      children: "Children",
+      anyDate: "Add date",
+      submit: "Get my quote",
+      hint: "No payment needed · reply within 24 hours",
+      /** First field per service tab: label + the neutral option shown by default. */
+      primary: {
+        tour: { label: "Which tour?", any: "Not sure yet" },
+        transfer: { label: "Transfer", any: "Airport ↔ hotel" },
+        package: { label: "Package", any: "Design one for me" },
+        flights: { label: "Flying from", any: "City or airport" },
+        hotel: { label: "Preferred coast", any: "Anywhere in Mauritius" },
+      },
     },
     featured: {
       eyebrow: "Signature experiences",
