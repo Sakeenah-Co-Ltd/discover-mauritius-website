@@ -32,7 +32,19 @@ radius 20px, CTA pill + arrow-circle pattern, featured grid fix). Interior pages
   quote form opens at step 3 with a recap + "Edit"; `flexible=1` path works; bad params (departure
   before arrival, adults=99) fall back safely to step 1; header is transparent at the top of Home
   and becomes the white bar after scroll; all header/footer links return 200.
-- **Unverified:** real devices (iOS Safari date inputs), Cloudflare `npm run preview`, Lighthouse.
+- **Verified on Cloudflare** (2026-08-18, preview version of this branch): https://77f2671a-discover-mauritius-website.kcelerie.workers.dev — Home, /tours, tour detail, /contact prefill all 200, no console errors, images served (after the `images.qualities` fix below).
+- **Unverified:** real devices (iOS Safari date inputs), Lighthouse.
+
+## 2b. Deployment (Cloudflare Workers) — read before merging
+
+- **Production URL:** https://discover-mauritius-website.kcelerie.workers.dev (Cloudflare account `Kcelerie@sakeenahgroup.com`, id `4365163a074bc67a2c9105473ee48ac9`, Worker `discover-mauritius-website`). Last production deploy: **2026-08-05** (PR #2 merge, via Workers Builds).
+- **Auto-deploy is currently BROKEN.** Workers Builds (Cloudflare's Git integration) built PR #2, but the repo has since moved from `kcelerie/…` to the `Sakeenah-Co-Ltd` org and the Cloudflare GitHub App is **not installed on the org** — no build ran for PR #3's merge or for PR #4. **Merging PR #4 will not update the production URL until this is fixed:**
+  1. Org admin (Boss): https://github.com/apps/cloudflare-workers-and-pages/installations/new → Sakeenah-Co-Ltd → select `discover-mauritius-website` → Install.
+  2. Cloudflare account owner (Kémuel): dashboard → Workers & Pages → `discover-mauritius-website` → Settings → Build → Git repository → connect `Sakeenah-Co-Ltd/discover-mauritius-website`, production branch `main`.
+- **Manual deploy from this machine** (wrangler is logged in as the Cloudflare account since 2026-08-18; `npx wrangler whoami` to check):
+  - Preview a branch without touching production: `npm run upload` → prints a `Version Preview URL`.
+  - Ship `main` to production: `git checkout main && git pull && npm run deploy`.
+- **Gotcha found 2026-08-18:** the OpenNext/Cloudflare image optimizer returns **400 `"q" parameter (quality) of N is not allowed`** for any `<Image quality>` not listed in `next.config.mjs → images.qualities`. Local `next start` is lenient, so this only shows on Cloudflare. The **live site's hero photo has been broken since 2026-08-05** for this reason (`quality={90}` then). Fixed by whitelisting `qualities: [75, 88]`; keep that list in sync with every `quality=` prop.
 
 ## 3. How to verify after any change
 ```bash

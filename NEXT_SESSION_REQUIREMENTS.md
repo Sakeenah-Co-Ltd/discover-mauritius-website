@@ -148,6 +148,15 @@ These block real progress. Without them the next session can only polish placeho
   (Nadiim Taher) and the team, and what you want travellers to feel.
 - **Where it is used:** `app/about/page.tsx` copy.
 
+### 2.8b ⬜ Reconnect Cloudflare auto-deploy (two clicks, two people)
+- **Needed for:** the live link updating by itself whenever a change is approved and merged. It used
+  to; it stopped when the code repository moved to the `Sakeenah-Co-Ltd` GitHub organisation.
+- **What to do:** (1) the GitHub organisation admin installs the "Cloudflare Workers & Pages" app on
+  `Sakeenah-Co-Ltd` for this repository; (2) whoever owns the Cloudflare account
+  (`Kcelerie@sakeenahgroup.com`) reconnects the repository under Workers & Pages →
+  discover-mauritius-website → Settings → Build. Exact links are in `HANDOVER.md` §2b.
+- **Until then:** I can publish manually from my machine on request (`npm run deploy`).
+
 ### 2.9 ⬜ Domain and hosting
 - **Needed for:** going live, correct links in search results and share previews.
 - **What I need to know:** the domain name you own (or want to buy), and whether you want me to
