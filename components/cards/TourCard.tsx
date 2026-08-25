@@ -6,7 +6,7 @@ import { formatFromPrice } from "@/lib/products";
 import { cn } from "@/lib/utils";
 
 /**
- * Reusable tour card (brief §6): photo · title · duration badge · "From €XX" ·
+ * Reusable tour card (brief §6): photo · title · duration badge · "From $XX" ·
  * one-line hook · Request Quote. Subtle hover lift + slow image zoom.
  * `variant="feature"` is the editorial cover-story treatment used for the
  * lead card in asymmetric grids: taller image, display-scale title.
@@ -75,11 +75,15 @@ export function TourCard({
           <span className="text-xs font-semibold uppercase tracking-wider text-lagoon-deep">
             {product.groupType}
           </span>
-          <span
-            className={cn("font-display font-medium text-ocean", feature ? "text-xl" : "text-lg")}
-            title={product.priceNote}
-          >
-            {formatFromPrice(product)}
+          <span className="flex flex-col items-end leading-none" title={product.priceNote}>
+            <span className={cn("font-display font-medium text-ocean", feature ? "text-xl" : "text-lg")}>
+              {formatFromPrice(product)}
+            </span>
+            {product.pricing ? (
+              <span className="mt-1 text-[10px] font-semibold uppercase tracking-wider text-muted">
+                per vehicle
+              </span>
+            ) : null}
           </span>
         </div>
 

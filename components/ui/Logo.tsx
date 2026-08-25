@@ -1,25 +1,30 @@
+import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { site } from "@/content/site";
 
-/** Wordmark placeholder (Pending #12) — a compass mark + brand name in Fraunces. */
+/**
+ * Brand lockup: the N.K. Taher Group mark beside the site wordmark.
+ *
+ * The mark is keyed from the client's supplied JPG (Requirements §2.1); the dark
+ * green reads poorly on `bg-ink`, so dark surfaces get the reversed variant. A
+ * vector original is still wanted — see NEXT_SESSION_REQUIREMENTS.md.
+ */
 export function Logo({ onDark = false, className }: { onDark?: boolean; className?: string }) {
   return (
     <Link
       href="/"
-      className={cn("group inline-flex items-center gap-2.5", className)}
+      className={cn("group inline-flex items-center gap-3", className)}
       aria-label={`${site.name} — home`}
     >
-      <span
-        className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-white shadow-card transition-transform group-hover:rotate-[8deg]"
-        style={{ backgroundImage: "var(--gradient-lagoon-line)" }}
-        aria-hidden
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-          <circle cx="12" cy="12" r="9" />
-          <path d="m15.5 8.5-2 5.5-5 2 2-5.5z" />
-        </svg>
-      </span>
+      <Image
+        src={onDark ? "/images/brand/nk-taher-mark-white.png" : "/images/brand/nk-taher-mark.png"}
+        alt=""
+        width={410}
+        height={550}
+        priority
+        className="h-10 w-auto shrink-0 transition-transform group-hover:-translate-y-0.5 md:h-11"
+      />
       <span className="flex flex-col leading-none">
         <span className={cn("whitespace-nowrap font-display text-lg font-semibold tracking-tight", onDark ? "text-white" : "text-ink")}>
           Discover Mauritius

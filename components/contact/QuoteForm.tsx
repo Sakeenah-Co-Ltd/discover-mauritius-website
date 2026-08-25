@@ -31,10 +31,10 @@ const INTERESTS = [
 
 const BUDGETS = [
   "Not sure yet",
-  "Under €1,000 pp",
-  "€1,000 – €2,500 pp",
-  "€2,500 – €5,000 pp",
-  "€5,000+ pp",
+  "Under $1,000 pp",
+  "$1,000 – $2,500 pp",
+  "$2,500 – $5,000 pp",
+  "$5,000+ pp",
 ];
 
 interface FormState {

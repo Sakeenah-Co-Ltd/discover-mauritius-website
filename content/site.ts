@@ -42,7 +42,7 @@ export const site = {
     countryCode: "MU",
   },
 
-  defaultCurrency: "EUR", // Pending #11
+  defaultCurrency: "USD", // the operator quotes in USD (tour + transfer PDFs, 25 Aug 2026)
 } as const;
 
 export interface TrustBadge {

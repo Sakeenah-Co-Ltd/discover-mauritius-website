@@ -37,22 +37,32 @@ These block real progress. Without them the next session can only polish placeho
   screenshot).
 - **Where it is used:** home page only; interior page headers are unchanged.
 
-### 1.2 ⬜ The real tour list
-- **Needed for:** the tour cards, the tour detail pages, the "Which tour?" list in the hero planner
-  and the search-engine listings. Everything shown today is realistic **placeholder** inventory
-  (8 items marked *draft*).
-- **What to send (per tour):** name · short one-line hook · 3–5 sentence description ·
-  duration (e.g. "Full day, about 8 hours") · region · private / small-group ·
-  what is **included** · what is **excluded** · itinerary stops in order (name + one line each) ·
-  any fixed operating days.
-- **Format:** a Word/Google Doc or a spreadsheet, one tour per row/section is perfect.
-- **Where it is used:** `content/tours.ts` (I do the typing; you only need to send the content).
+### 1.2 🟨 The real tour list — *first four received, more promised*
+- **What arrived (25 Aug 2026):** four PDFs, now live on the site exactly as written —
+  *Discover Port Louis & the North of Mauritius*, *Seven Coloured Earth & South Coast Wonders*,
+  *Vallée Advenature Park & the Wild South*, and the *Private Airport & Hotel Transfer*. Your
+  descriptions, stop durations, inclusions and prices are used verbatim.
+- **Still waiting on:** the rest of the tours you said you would prepare later that week, and the
+  real five-day package (§2.10).
+- **Three invented tours are still on the site** — *Île aux Cerfs Catamaran Day*, *Full-Island
+  Private Day* and the *Five-Day Package*. They carry a visible "sample itinerary" banner. Tell me
+  whether to **hide them now** (leaving three real tours) or **leave them until your next batch
+  arrives**. My recommendation: hide them, so nothing invented sits beside your real products.
+- **What to send (per remaining tour):** name · one-line hook · description · duration ·
+  the stops in order with how long you spend at each · what is **included** / **excluded** ·
+  the car and van price. The four PDFs you already sent are the perfect format — just more of those.
+- **Where it is used:** `content/tours.ts` (I do the typing; you only send the content).
 
-### 1.3 ⬜ Starting prices and the currency to display
-- **Needed for:** "From €XX" on every tour card, the tour pages and the packages page. All prices
-  shown today are **placeholders** and are labelled as such in the code.
-- **What to send:** the starting price for each tour / the package / the airport transfer, whether
-  it is per person or per vehicle, and the currency you want shown (EUR, USD or MUR).
+### 1.3 🟨 Starting prices and the currency to display — *answered for the first four*
+- **What arrived:** your PDFs price **per vehicle in USD** — tours at **$84 a car (up to 3)** and
+  **$125 a van (5 to 10)**, transfers at **$45 a car (up to 2)** and **$120 a van (up to 6)**.
+- **What I changed as a result:** the whole site now displays **USD**, and every price is labelled
+  *per vehicle, not per person*. Cards show "From $84 · per vehicle" and each tour page carries the
+  full car/van table. This matters — the site previously implied per-person pricing, which would
+  have made you look roughly three times more expensive than you are.
+- **Please confirm:** (a) USD is the currency you want shown to visitors — I inferred it from the
+  PDFs; if you would rather show EUR or MUR, say so and I will convert. (b) Prices for the
+  remaining tours and the package when you send them.
 - **Where it is used:** `content/tours.ts` and `content/site.ts`.
 
 ### 1.4 ⬜ Photographs (the single biggest upgrade left)
@@ -87,16 +97,43 @@ These block real progress. Without them the next session can only polish placeho
   - Whether "children" should have an age range note (e.g. under 12).
 - **Where it is used:** `components/home/HeroPlanner.tsx` (small constants at the top of the file).
 
+### 1.7 ⬜ Four small questions about the tours you sent
+These are places where your PDFs were ambiguous. I made the safest choice in each case and noted it
+here rather than guessing silently.
+
+1. **How long is the Wild South tour?** The other two PDFs give a total ("5–6 hr", "6–7 hours") but
+   the Vallée Advenature one does not. Its stops add up to about 5½ hours before driving time. The
+   site currently says just **"Full day"** — tell me the real figure and I will use it.
+2. **Does the Port Louis tour stop at Caudan Waterfront?** Your stop list includes it (30 minutes),
+   but the numbered itinerary at the end of the PDF starts at the Craft Market and leaves it out.
+   I have **included it**, as the fuller of the two lists.
+3. **Is "Advenature" the spelling you want?** It appears that way throughout your PDF (the park's
+   own name is *La Vallée des Couleurs Nature Park*). I have kept **your** spelling rather than
+   silently renaming your product — confirm, or tell me what to use.
+4. **Van capacity "5 to 10 people".** Shown as written. If a van genuinely seats up to 10, the site
+   should probably say "up to 10" — confirm and I will simplify.
+
 ---
 
 ## 2. Required before launch
 
-### 2.1 ⬜ Logo and brand assets
-- **Needed for:** the header, footer, browser tab icon and the image shown when a link is shared on
-  WhatsApp/Facebook. Today a placeholder compass wordmark is used.
-- **What to send:** the logo as SVG (best) or a large transparent PNG; any brand colour codes or a
-  brand guide if one exists.
-- **Where it is used:** `components/ui/Logo.tsx`, `app/icon.svg`, `app/opengraph-image.tsx`.
+### 2.1 🟨 Logo and brand assets — *logo received and live; vector still wanted*
+- **What arrived (25 Aug 2026):** `discover-mauritius-logo.jpg` — the **N.K. Taher Group** logo
+  (the leaf-and-aircraft mark plus the "NK TAHER GROUP" wordmark) on a white background.
+- **What I did:** removed the white background so the mark sits cleanly on photographs and on the
+  dark footer, made a reversed white version for dark backgrounds, and used it for the header, the
+  footer, the browser tab icon and the WhatsApp/Facebook share image.
+- **One decision to confirm or veto:** the file you sent carries the words "NK Taher Group", not
+  "Discover Mauritius". Rather than show two competing wordmarks, I used **your mark beside the
+  "Discover Mauritius / by N.K. Taher Co Ltd" wordmark**. If you would prefer the full N.K. Taher
+  lockup used on its own — dropping "Discover Mauritius" from the header — say so and I will switch.
+- **Still worth sending:** the logo as **SVG** or a large **transparent PNG**. What I have is a
+  1019×594 JPG, and no amount of processing makes a JPG as crisp as a vector on a modern screen.
+- **Also useful:** your brand colour codes. The mark is dark green and lime; the site's accent is
+  currently gold with an ocean-blue base. They coexist, but if you want the site restyled to the
+  N.K. Taher greens, that is a design decision worth making deliberately — tell me and I will scope it.
+- **Where it is used:** `components/ui/Logo.tsx`, `app/icon.png`, `app/opengraph-image.tsx`,
+  `public/images/brand/`.
 
 ### 2.2 ⬜ Office address
 - **Needed for:** the contact page map and the "LocalBusiness" data Google reads. Street line is
@@ -196,6 +233,10 @@ These block real progress. Without them the next session can only polish placeho
 | 2026-07-15 | Typography direction | ✅ Confirmed: Fraunces (headings) + Inter (body). |
 | 2026-08-04 | First photograph | ✅ Le Morne aerial supplied (512px original, upscaled). Now used on home hero, /tours header, South tour. A higher-resolution original is still wanted (see 1.4). |
 | 2026-08-18 | Hero visual reference | ✅ `template1.webp` supplied and implemented (see 1.1 for approval). |
+| 2026-08-25 | First four real products | ✅ Three tours + the private transfer supplied as PDFs and typed into the site verbatim (see 1.2). |
+| 2026-08-25 | Pricing model | ✅ Per **vehicle**, in **USD** — car and van rates for every product supplied. Site switched from per-person EUR placeholders (see 1.3). |
+| 2026-08-25 | Guide languages | ✅ Hindi, Arabic, English, French and Urdu — now shown on every real tour page. |
+| 2026-08-25 | Logo | ✅ N.K. Taher Group logo supplied as JPG, background removed, now used site-wide. Vector original still wanted (see 2.1). |
 
 ---
 

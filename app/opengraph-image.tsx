@@ -1,4 +1,5 @@
 import { ImageResponse } from "next/og";
+import { brandMarkWhiteDataUri } from "@/lib/brand-mark";
 
 export const alt = "Discover Mauritius — Tours, Airport Transfers & Holiday Packages";
 export const size = { width: 1200, height: 630 };
@@ -21,16 +22,14 @@ export default function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: "22px" }}>
-          <div
-            style={{
-              width: "64px",
-              height: "64px",
-              borderRadius: "16px",
-              display: "flex",
-              backgroundImage: "linear-gradient(135deg,#006994 0%,#00bfa6 55%,#d4a72c 100%)",
-            }}
-          />
-          <div style={{ fontSize: "36px", fontWeight: 700 }}>Discover Mauritius</div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={brandMarkWhiteDataUri} width={60} height={80} alt="" />
+          <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+            <div style={{ fontSize: "36px", fontWeight: 700 }}>Discover Mauritius</div>
+            <div style={{ fontSize: "20px", color: "rgba(255,255,255,0.75)", letterSpacing: "0.14em" }}>
+              BY N.K. TAHER CO LTD
+            </div>
+          </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>

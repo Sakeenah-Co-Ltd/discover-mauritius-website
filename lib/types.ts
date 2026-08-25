@@ -41,6 +41,19 @@ export interface ItineraryStop {
 
 export type ProductType = "tour" | "package" | "transfer";
 
+/**
+ * One row of the operator's price list. Tours and transfers are sold **per
+ * vehicle**, not per person, so a single "from" figure is never the whole story
+ * — `Product.pricing` carries the full list and the UI shows it verbatim.
+ */
+export interface VehiclePrice {
+  /** "Car", "Van" */
+  vehicle: string;
+  /** capacity exactly as the operator states it, e.g. "Up to 3 people" */
+  capacity: string;
+  price: number;
+}
+
 export interface Product {
   slug: string;
   productType: ProductType;
@@ -52,11 +65,17 @@ export interface Product {
   region: string;
   /** display string, e.g. "Full day · about 8 hours" */
   duration: string;
-  /** numeric starting price — EUR placeholder (Pending #11) */
+  /** numeric starting price — the cheapest row of `pricing` when that is present */
   fromPrice: number;
   currency: string;
-  /** always flagged while prices are placeholders */
+  /** what the "from" figure covers, e.g. "Per vehicle, not per person" */
   priceNote: string;
+  /** the operator's full per-vehicle price list, when one has been supplied */
+  pricing?: VehiclePrice[];
+  /** languages the driver-guide speaks */
+  languages?: string[];
+  /** accessibility notes, as supplied by the operator */
+  accessibility?: string[];
   groupType: string;
   highlights: string[];
   included: string[];
@@ -137,4 +156,5 @@ export type IconName =
   | "menu"
   | "close"
   | "search"
+  | "globe"
   | "arrow-up-right";
