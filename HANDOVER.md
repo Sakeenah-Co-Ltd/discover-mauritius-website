@@ -27,7 +27,7 @@ Still placeholder: photographs (one real photo), reviews, the five-day package.
 
 ## 2. In flight
 
-- **Branch:** `feature/real-tours-and-logo` (off `main` at `703d40e`). **PR #5:** https://github.com/Sakeenah-Co-Ltd/discover-mauritius-website/pull/5 (open, awaiting review + the two client decisions in Requirements §1.3 and §2.1). The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it.
+- **Branch:** `chore/deploy-workflow` (off `main` at `badc658`). PR #5 (real tours + logo) is **merged**. The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a `git remote set-url`.
 - **Verified** (2026-08-25, local production build + `curl` against `npm start`):
   `npm run build` passes (28/28 pages) and prerenders the three new tour slugs; `/`, `/tours`, the
   three new tour pages, `/tours/airport-transfer-private`, `/airport-transfers`, `/icon.png`,
@@ -42,8 +42,13 @@ Still placeholder: photographs (one real photo), reviews, the five-day package.
   (three attempts), so nothing was screenshotted in the running site: **the logo's size and optical
   balance in the real header and footer, the per-vehicle price table inside the booking card, and
   the 390px layout are all unconfirmed.** Do this first next session.
-- **Unverified (carried over):** real devices (iOS Safari date inputs), Cloudflare `npm run preview`,
-  Lighthouse.
+- **Verified (2026-08-25, deploy work):** `npx opennextjs-cloudflare build` completes and bundles
+  `.open-next/worker.js` (this was previously untested). Indexing gate checked in both directions:
+  with the flag unset, `robots.txt` is `Disallow: /` and pages carry `noindex, nofollow`; with
+  `NEXT_PUBLIC_ALLOW_INDEXING=true`, `robots.txt` allows and pages carry `index, follow`.
+- **Unverified (carried over):** real devices (iOS Safari date inputs), Cloudflare `preview`/`deploy`
+  against a real account, Lighthouse. **The deploy workflow itself has never run** — it cannot until
+  the two repository secrets exist.
 
 ## 3. How to verify after any change
 ```bash
@@ -80,7 +85,8 @@ overflow + broken-image checks. Rebuild it from that description if needed; noth
 | Images | `public/images/le-morne-photo.jpg` (only real photo — now the Wild South tour hero), `components/ui/SmartImage.tsx` (placeholder → `next/image` swap) | Slot brief in `IMAGE-SHOTLIST.md` |
 | Interior page headers | `components/ui/PageHeader.tsx` | Dark band with optional photo; unchanged this session |
 | SEO | `lib/schema.ts`, `components/seo/JsonLd.tsx`, `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx` | |
-| Deploy | `wrangler.jsonc`, `open-next.config.ts` (Cloudflare Workers via `@opennextjs/cloudflare`); `NEXT_PUBLIC_SITE_URL` env | Vercel also fine |
+| Deploy | `.github/workflows/deploy.yml`, `wrangler.jsonc`, `open-next.config.ts` | Push to `main` → build → Cloudflare Workers. See §6 |
+| **Indexing gate** | `lib/seo-flags.ts`, `app/robots.ts`, `app/layout.tsx` | Search engines are blocked **by default**. Opening the site at launch is one repo variable — see §6 |
 
 Removed this session: `app/icon.svg` (replaced by `app/icon.png`), and the two invented tours the real
 inventory duplicated — `port-louis-cultural-market` and `black-river-gorges-hiking`. Slugs changed:
@@ -94,7 +100,38 @@ by 4px. That closing seals the narrow channel where the aircraft's nose meets th
 aircraft reads as opaque white instead of a knockout hole; letter counters in the wordmark are
 deliberately left transparent. Soft edge pixels take the colour of the nearest solid ink.
 
-## 5. Docs map
+## 5. Deploy
+
+Every push to `main` builds and deploys to Cloudflare Workers via
+`.github/workflows/deploy.yml`. There is no staging environment — `main` is production.
+
+**Two repository secrets are required before the workflow can succeed**
+(Settings → Secrets and variables → Actions → *Secrets*):
+
+| Secret | Where it comes from |
+|---|---|
+| `CLOUDFLARE_API_TOKEN` | Cloudflare dashboard → My Profile → API Tokens → *Edit Cloudflare Workers* template |
+| `CLOUDFLARE_ACCOUNT_ID` | Cloudflare dashboard → Workers & Pages → right-hand sidebar |
+
+**Two optional repository *variables*** (same page, *Variables* tab — these are not secrets):
+
+| Variable | Effect |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Canonical URLs, sitemap, robots host and share-card URLs. Unset → falls back to the placeholder `https://www.discover-mauritius.com` in `content/site.ts` |
+| `NEXT_PUBLIC_ALLOW_INDEXING` | `true` opens the site to search engines. **Anything else keeps it fully blocked**, which is the deliberate default while content is unfinished |
+
+⚠️ **At launch, `NEXT_PUBLIC_ALLOW_INDEXING` must be set to `true` and the site redeployed**, or the
+live site will stay invisible to Google. Both flags are read at *build* time, so changing a variable
+only takes effect on the next deploy — re-run the workflow after changing one.
+
+No Cloudflare Git integration is used. As of 2026-08-25 the Cloudflare GitHub App was **not**
+installed on the `Sakeenah-Co-Ltd` org (likely lost when the repo moved out of `kcelerie/`), so
+dashboard-driven builds were not firing. Note this project is a **Workers** app (OpenNext), not a
+Pages app — a Cloudflare *Pages* project cannot build it.
+
+Manual deploy from a workstation still works: `wrangler login` then `npm run deploy`.
+
+## 6. Docs map
 - `NEXT_SESSION_REQUIREMENTS.md` — **client checklist** (what we still need, by priority, with history).
 - `NOTES.md` — design system + dated design log (why things look the way they do).
 - `IMAGE-SHOTLIST.md` — photo brief per slot. `SEO-NOTES.md` — technical SEO + post-launch playbook.

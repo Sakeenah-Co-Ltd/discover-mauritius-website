@@ -7,6 +7,7 @@ import { WhatsAppFloat } from "@/components/layout/WhatsAppFloat";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { site } from "@/content/site";
+import { allowIndexing } from "@/lib/seo-flags";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -53,11 +54,15 @@ export const metadata: Metadata = {
     title: "Discover Mauritius — Tours, Transfers & Holiday Packages",
     description: site.oneLiner,
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: { index: true, follow: true, "max-image-preview": "large" },
-  },
+  // robots.txt alone only stops crawling; a linked URL can still be indexed
+  // without content. The meta tag is what actually keeps a pre-launch build out.
+  robots: allowIndexing
+    ? {
+        index: true,
+        follow: true,
+        googleBot: { index: true, follow: true, "max-image-preview": "large" },
+      }
+    : { index: false, follow: false, googleBot: { index: false, follow: false } },
 };
 
 export const viewport: Viewport = {

@@ -185,14 +185,29 @@ here rather than guessing silently.
   (Nadiim Taher) and the team, and what you want travellers to feel.
 - **Where it is used:** `app/about/page.tsx` copy.
 
-### 2.9 ⬜ Domain and hosting
-- **Needed for:** going live, correct links in search results and share previews.
-- **What I need to know:** the domain name you own (or want to buy), and whether you want me to
-  host on **Cloudflare** (the project already contains a Cloudflare Workers configuration) or
-  **Vercel** (simplest for Next.js). Both have free tiers suitable for this site.
-- **What to send:** domain name + registrar login *or* an invitation for me to manage DNS; the
-  choice of host.
-- **Where it is used:** environment variable `NEXT_PUBLIC_SITE_URL`, deploy config.
+### 2.9 🟨 Domain and hosting — *host settled; two keys and a domain still needed*
+- **Settled (25 Aug 2026):** hosting is **Cloudflare Workers**, deployed automatically. Every time
+  the site is updated, it now rebuilds and goes live on its own — no manual step.
+- **⬜ I need two keys from your Cloudflare account** before that automation can run for the first
+  time. In the Cloudflare dashboard:
+  1. **My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"** template. Copy the token.
+  2. **Workers & Pages → Account ID** in the right-hand sidebar. Copy it.
+  Then add both in GitHub under **Settings → Secrets and variables → Actions → Secrets**, named
+  exactly `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. **Add them yourself — do not send
+  them to me or paste them into chat.** A token pasted into a conversation has to be treated as
+  compromised and rotated.
+- **Heads up on what you set up already:** the Cloudflare connection you made is not reaching this
+  repository — Cloudflare's GitHub app is not installed on the `Sakeenah-Co-Ltd` organisation, most
+  likely because the code moved out of your personal account after you connected it. Nothing was
+  building. The automatic deploy above replaces it, so there is nothing for you to fix there.
+- **⬜ Domain.** You do not have one yet, so the first deploy will land on a free
+  `…workers.dev` address — enough to see the site and share it privately. When you buy a domain,
+  send me the name and I will point everything at it.
+- **One thing to remember at launch:** the site is deliberately **hidden from Google** while the
+  content is unfinished (sample reviews, placeholder prices). That is one setting to flip when you
+  are ready — I will do it, but ask me, because a site nobody can find is easy to forget about.
+- **Where it is used:** `.github/workflows/deploy.yml`, `NEXT_PUBLIC_SITE_URL`,
+  `NEXT_PUBLIC_ALLOW_INDEXING`.
 
 ### 2.10 ⬜ Five-day package details
 - **Needed for:** the packages page currently shows an invented sample itinerary.
