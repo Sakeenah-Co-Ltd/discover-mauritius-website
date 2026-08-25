@@ -27,7 +27,7 @@ Still placeholder: photographs (one real photo), reviews, the five-day package.
 
 ## 2. In flight
 
-- **Branch:** `feature/real-tours-and-logo` (off `main` at `703d40e`). No PR opened yet. The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it.
+- **Branch:** `feature/real-tours-and-logo` (off `main` at `703d40e`). **PR #5:** https://github.com/Sakeenah-Co-Ltd/discover-mauritius-website/pull/5 (open, awaiting review + the two client decisions in Requirements §1.3 and §2.1). The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it.
 - **Verified** (2026-08-25, local production build + `curl` against `npm start`):
   `npm run build` passes (28/28 pages) and prerenders the three new tour slugs; `/`, `/tours`, the
   three new tour pages, `/tours/airport-transfer-private`, `/airport-transfers`, `/icon.png`,
