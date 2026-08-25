@@ -40,15 +40,15 @@ export default function AirportTransfersPage() {
         { icon: "map-pin", label: "Coverage", value: "Anywhere in Mauritius" },
         { icon: "shield", label: "Meet & greet", value: "Name board in arrivals" },
         { icon: "clock", label: "Flight tracking", value: "We adjust to delays" },
-        { icon: "sparkles", label: "Starting price", value: "From €35 per vehicle (indicative)" },
+        { icon: "sparkles", label: "Starting price", value: "From $45 per vehicle (car, up to 2)" },
       ]}
       features={[
         { icon: "shield", title: "Meet & greet", body: "Your driver waits in the arrivals hall with a name board — no wandering, no confusion after a long flight." },
         { icon: "clock", title: "Flight monitoring", body: "We track your flight and adjust the pickup automatically if you're early or delayed." },
         { icon: "car", title: "Clean, comfortable vehicles", body: "Air-conditioned, well-maintained vehicles sized to your party and luggage." },
         { icon: "map-pin", title: "Anywhere on the island", body: "Pickup and drop-off at any hotel, villa or address across Mauritius." },
-        { icon: "users", title: "Child seats on request", body: "Travelling with little ones? Ask for a child seat when you book." },
-        { icon: "check", title: "Fixed, transparent pricing", body: "Your rate is agreed in advance by zone — no meters, no surprises on arrival." },
+        { icon: "users", title: "Infant seats on request", body: "Travelling with little ones? Ask for an infant seat when you book." },
+        { icon: "check", title: "Fixed, transparent pricing", body: "A fixed price per vehicle, agreed before you travel — no meters, no surprises on arrival." },
       ]}
       steps={[
         { title: "Send your flight & hotel", description: "Share your arrival flight number and where you're staying when you request a quote." },

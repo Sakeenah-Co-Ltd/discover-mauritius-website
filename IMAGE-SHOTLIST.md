@@ -36,23 +36,31 @@ placeholder for an optimized `next/image` automatically — no code changes.
 | `about-hero` | /about | Local guide looking out over a lagoon at golden hour | Wide |
 | `about-story` | /about | The team welcoming travellers to the island | Landscape |
 
-## Tour: South Island Discovery
+## Tour: Seven Coloured Earth & South Coast Wonders *(real product)*
 | Slot id | Subject | Orientation |
 |---|---|---|
-| `south-chamarel-hero` | Aerial of Seven Coloured Earths dunes, Chamarel | Wide |
+| `south-chamarel-hero` | Aerial of the Seven Coloured Earth dunes, Chamarel | Wide |
 | `south-grand-bassin` | Sacred lake of Grand Bassin with temple statues | Landscape |
-| `south-chamarel-falls` | Chamarel Waterfall plunging into forested gorge | Portrait |
-| `south-black-river-view` | Panorama over Black River Gorges NP | Landscape |
+| `south-alexandra-falls` | Alexandra Falls viewpoint over the Black River Gorges | Portrait |
+| `south-trou-aux-cerfs` | Panorama from the Trou aux Cerfs crater above Curepipe | Landscape |
 
-## Tour: North Island & Cap Malheureux
+## Tour: Discover Port Louis & the North of Mauritius *(real product)*
 | Slot id | Subject | Orientation |
 |---|---|---|
 | `north-cap-malheureux-hero` | Red-roofed church, turquoise sea, northern islets | Wide |
-| `north-pamplemousses` | Giant Victoria water lilies, Pamplemousses garden | Landscape |
-| `north-grand-baie` | Boats moored in the turquoise bay at Grand Baie | Landscape |
-| `north-coast` | Northern coastline at golden hour | Portrait |
+| `north-central-market` | Spice and fruit stalls at the Port Louis Central Market | Landscape |
+| `north-botanic-garden` | Giant water lilies at the SSR Botanic Garden, Pamplemousses | Portrait |
+| `north-pereybere-beach` | White sand and calm turquoise water at Pereybere Beach | Landscape |
 
-## Tour: Île aux Cerfs Catamaran Day
+## Tour: Vallée Advenature Park & the Wild South *(real product)*
+| Slot id | Subject | Orientation |
+|---|---|---|
+| `south-le-morne-hero` | ✅ **supplied** — Le Morne Brabant over the lagoon (512px original; a ≥2400px version is still wanted) | Wide |
+| `wild-south-zipline` | Zipline crossing a canyon at La Vallée des Couleurs | Landscape |
+| `wild-south-gris-gris` | Waves crashing against the cliffs at Gris Gris | Portrait |
+| `wild-south-maconde` | The Maconde viewpoint above the southern coastline | Landscape |
+
+## Tour: Île aux Cerfs Catamaran Day *(placeholder — awaiting the client's own version)*
 | Slot id | Subject | Orientation |
 |---|---|---|
 | `ile-aux-cerfs-hero` | Catamaran over turquoise lagoon near Île aux Cerfs | Wide |
@@ -60,23 +68,7 @@ placeholder for an optimized `next/image` automatically — no code changes.
 | `cerfs-snorkel` | Snorkeller above a coral garden in clear water | Portrait |
 | `cerfs-grse-waterfall` | Grand River South East waterfall meeting the sea | Landscape |
 
-## Tour: Port Louis Cultural & Market
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `port-louis-hero` | Port Louis harbour + Caudan Waterfront + mountains | Wide |
-| `pl-market` | Colourful spice/produce stalls in Central Market | Portrait |
-| `pl-aapravasi` | Stone steps of the Aapravasi Ghat (UNESCO) | Landscape |
-| `pl-citadel` | View over Port Louis rooftops from Fort Adelaide | Landscape |
-
-## Tour: Black River Gorges Nature & Hiking
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `black-river-hero` | Misty view over forested valleys of the national park | Wide |
-| `brg-alexandra-falls` | Alexandra Falls cascading into deep green forest | Portrait |
-| `brg-trail` | Walking trail through native ebony forest | Landscape |
-| `brg-bird` | Endemic Mauritius kestrel on a branch | Square |
-
-## Tour: Full-Island Private Day
+## Tour: Full-Island Private Day *(placeholder — awaiting the client's own version)*
 | Slot id | Subject | Orientation |
 |---|---|---|
 | `full-island-hero` | Coastal road along the shoreline, mountains inland | Wide |
@@ -92,7 +84,7 @@ placeholder for an optimized `next/image` automatically — no code changes.
 | `package-tour` | Guide + travellers at a scenic viewpoint | Landscape |
 | `package-catamaran` | Catamaran sailing on a calm turquoise lagoon | Portrait |
 
-## Product: Private Airport Transfer
+## Product: Private Airport & Hotel Transfer *(real product)*
 | Slot id | Subject | Orientation |
 |---|---|---|
 | `transfer-hero` | Clean A/C transfer vehicle on a coastal road | Wide |
@@ -102,7 +94,8 @@ placeholder for an optimized `next/image` automatically — no code changes.
 ---
 
 ### Also worth supplying (not yet slotted in code)
-- **Logo / wordmark** (Pending #12) — replaces the placeholder compass wordmark.
+- **Logo in vector** — the N.K. Taher mark is now live, keyed from the supplied JPG. An SVG or
+  large transparent PNG original would render crisper at every size (see Requirements §2.1).
 - **Certificates** (Pending #7) — Tour Operator Licence, IATA Accreditation, Company Registration
   (scans/photos) for the About page frames.
 - **Team / guide photos** — optional, to add real guide profiles on About later.

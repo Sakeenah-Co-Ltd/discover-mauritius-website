@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/Button";
 import { Icon } from "@/components/ui/Icon";
-import { formatFromPrice } from "@/lib/products";
+import { formatFromPrice, formatMoney } from "@/lib/products";
 import { whatsappLink } from "@/lib/utils";
 import { copy } from "@/content/copy";
 import type { Product, IconName } from "@/lib/types";
@@ -27,8 +27,23 @@ export function BookingCard({ product }: { product: Product }) {
         </span>
       </div>
       <p className="mt-1 text-xs text-muted" title={product.priceNote}>
-        per {product.productType === "transfer" ? "vehicle" : "person"} · indicative
+        {product.pricing ? product.priceNote : "per person · indicative"}
       </p>
+
+      {product.pricing ? (
+        <dl className="mt-4 flex flex-col gap-2 rounded-xl bg-lagoon-mist/60 p-4 text-sm">
+          {product.pricing.map((row) => (
+            <div key={row.vehicle} className="flex items-baseline justify-between gap-3">
+              <dt className="text-ink">
+                {row.vehicle} <span className="text-muted">· {row.capacity.toLowerCase()}</span>
+              </dt>
+              <dd className="font-display font-semibold text-ocean">
+                {formatMoney(row.price, product.currency)}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      ) : null}
 
       <dl className="mt-5 flex flex-col gap-3 border-y border-hairline py-5 text-sm">
         {facts.map((f) => (
@@ -38,6 +53,13 @@ export function BookingCard({ product }: { product: Product }) {
             <dd className="text-ink">{String(product[f.label as keyof Product])}</dd>
           </div>
         ))}
+        {product.languages ? (
+          <div className="flex items-start gap-3">
+            <Icon name="globe" size={17} className="mt-0.5 shrink-0 text-ocean" />
+            <dt className="sr-only">Guide languages</dt>
+            <dd className="text-ink">{product.languages.join(", ")}</dd>
+          </div>
+        ) : null}
       </dl>
 
       <div className="mt-5 flex flex-col gap-3">

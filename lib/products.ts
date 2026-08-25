@@ -51,7 +51,10 @@ export function getTourRegions(): string[] {
 
 const CURRENCY_SYMBOLS: Record<string, string> = { EUR: "€", USD: "$", MUR: "₨" };
 
+export function formatMoney(amount: number, currency: string): string {
+  return `${CURRENCY_SYMBOLS[currency] ?? ""}${amount}`;
+}
+
 export function formatFromPrice(product: Pick<Product, "fromPrice" | "currency">): string {
-  const symbol = CURRENCY_SYMBOLS[product.currency] ?? "";
-  return `From ${symbol}${product.fromPrice}`;
+  return `From ${formatMoney(product.fromPrice, product.currency)}`;
 }

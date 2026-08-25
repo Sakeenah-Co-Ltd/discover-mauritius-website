@@ -184,6 +184,25 @@ export default async function TourDetailPage({
               </div>
             </div>
 
+            {/* Good to know — only where the operator supplied notes */}
+            {product.accessibility?.length ? (
+              <div className="rounded-card border border-hairline bg-white p-6">
+                <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold text-ink">
+                  <span className="flex h-7 w-7 items-center justify-center rounded-full bg-sand-mist text-gold-ink">
+                    <Icon name="sparkles" size={16} />
+                  </span>
+                  Good to know
+                </h3>
+                <ul className="flex flex-wrap gap-2">
+                  {product.accessibility.map((x) => (
+                    <li key={x} className="rounded-full border border-hairline px-3 py-1 text-sm text-muted">
+                      {x}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null}
+
             {/* Map */}
             <div>
               <h2 className="mb-4 text-2xl">Where you&apos;ll go</h2>
