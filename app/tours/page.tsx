@@ -21,7 +21,7 @@ const heroImage: ImageSlot = {
   alt: "Le Morne Brabant above the turquoise lagoon and palm-lined beach of south-west Mauritius",
   tone: "lagoon",
   orientation: "wide",
-  src: "/images/le-morne-photo.jpg",
+  src: "/images/le-morne-aerial.jpg",
   position: "50% 16%", // wide letterbox crop: keep the summit in frame
 };
 

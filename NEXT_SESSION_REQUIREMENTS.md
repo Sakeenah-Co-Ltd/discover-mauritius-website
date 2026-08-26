@@ -65,19 +65,37 @@ These block real progress. Without them the next session can only polish placeho
   remaining tours and the package when you send them.
 - **Where it is used:** `content/tours.ts` and `content/site.ts`.
 
-### 1.4 ⬜ Photographs (the single biggest upgrade left)
-- **Needed for:** every image slot except one. Today only the Le Morne aerial is a real photo
-  (home hero, /tours header, South tour). Every other card and page shows a branded gradient
-  placeholder. The site is designed to be photography-led, so this is what makes it feel finished.
-- **What to send:** see the full, slot-by-slot brief in `IMAGE-SHOTLIST.md`. Priorities:
-  1. **Home hero photo** (new shape since 18 Aug): a photo that works as a **near-square crop with
-     the subject on the right-hand side** (the left third fades into the page). Ideal: an aerial or
-     wide shot of lagoon + mountain/resort, **at least 2000px on the long edge**. The current Le
-     Morne image is an upscaled 512px original and is the weakest asset on the page.
-  2. **One landscape photo per tour** (min 1600×1200, JPG or WebP) for the cards and detail pages.
-  3. Airport transfer vehicle, packages/resort, and one team/guide photo for the About page.
+### 1.4 🟨 Photographs — *17 received and live; two problems to settle*
+- **What arrived (25 Aug 2026):** 17 photos across five folders. All are now in the site — every
+  tour card and the home page hero show real photography instead of a grey placeholder. That is a
+  big visual step up, and it is what makes the site finally look like a real tour operator's.
+- **Two things need your attention:**
+
+  **⬜ 1. They are all too small.** The largest is 1585×792; a full-width hero really wants
+  2400×1350. Nothing can be done in software about this — enlarging a small photo does not add
+  detail, it just makes the softness bigger. On a modern phone or laptop these will look slightly
+  fuzzy, most noticeably the big header images. Two are especially weak: the aerial beach shot
+  (500×400) and the moored-catamarans shot (768×260, so letterboxed it crops badly). **If you have
+  the originals these were made from, send those** — same pictures, full size, and the problem
+  disappears.
+
+  **⬜ 2. Where did they come from?** Several arrived with filenames that suggest they were saved
+  from other websites rather than taken by you — two are called `images.jpeg` and `images (1).jpeg`
+  (the name a browser gives a picture saved from Google Images), and others carry the resizing
+  suffixes that website software adds. The park photos look like Vallée Advenature's own marketing
+  shots, and one catamaran photo appears to belong to another operator. **Using another company's
+  photographs on your commercial website is a copyright risk** — the usual outcome is a takedown
+  demand or an invoice, and it is the kind of thing a competitor notices. Please confirm for each
+  batch whether it is: (a) your own, (b) licensed stock you bought, or (c) supplied with written
+  permission by the park/operator. Anything that is none of those should be replaced before launch.
+  I have kept every original file, so swapping any of them out is quick.
+
+- **Still wanted (see `IMAGE-SHOTLIST.md` for the full list):** Grand Bassin, Cap Malheureux church,
+  the Central Market, the botanic garden, Gris Gris, an airport-transfer vehicle, a resort shot for
+  the packages page, and one team or guide photo for the About page.
 - **Rights:** your own photos, or stock you have licensed. Please tell me which is which.
-- **Where it is used:** `/public/images` + the `src` field on each slot in `content/*`.
+- **Where it is used:** `/public/images/tours/` (one file per slot, named after the slot) and
+  `/public/images/le-morne-aerial.jpg`, wired to the `src` field on each slot in `content/tours.ts`.
 
 ### 1.5 ⬜ Where quote requests should go
 - **Needed for:** delivering the enquiries people submit through the "Get my quote" planner and
@@ -252,6 +270,7 @@ here rather than guessing silently.
 | 2026-08-25 | Pricing model | ✅ Per **vehicle**, in **USD** — car and van rates for every product supplied. Site switched from per-person EUR placeholders (see 1.3). |
 | 2026-08-25 | Guide languages | ✅ Hindi, Arabic, English, French and Urdu — now shown on every real tour page. |
 | 2026-08-25 | Logo | ✅ N.K. Taher Group logo supplied as JPG, background removed, now used site-wide. Vector original still wanted (see 2.1). |
+| 2026-08-25 | First photographs | ✅ 17 photos supplied and placed across the three real tours, the two remaining drafts and the home hero. Resolution and rights both still open (see 1.4). |
 
 ---
 
