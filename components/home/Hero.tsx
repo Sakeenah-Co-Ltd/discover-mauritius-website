@@ -90,7 +90,7 @@ export function Hero() {
             >
               <div className="hero-kenburns absolute inset-0">
                 <Image
-                  src="/images/le-morne-photo.jpg"
+                  src="/images/le-morne-aerial.jpg"
                   alt="Le Morne Brabant rising over a turquoise lagoon, white-sand beach and palm forest in south-west Mauritius"
                   fill
                   priority

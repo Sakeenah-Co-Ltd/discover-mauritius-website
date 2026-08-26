@@ -23,11 +23,14 @@ in: the supplied JPG was keyed to transparency (flood-fill + morphological closi
 aircraft stays opaque rather than becoming a hole), with a reversed variant for `bg-ink`, and it now
 drives the header, footer, favicon, apple-touch icon and the OG card. Three invented products remain,
 still `draft: true` behind the "sample itinerary" banner, pending the client's next batch.
-Still placeholder: photographs (one real photo), reviews, the five-day package.
+**Also this session:** auto-deploy wired (push to `main` → Cloudflare Workers, live at
+https://discover-mauritius-website.kcelerie.workers.dev, search engines blocked by default), and the
+client's first 17 photographs placed — every tour card and the home hero now show real photography.
+Still placeholder: reviews, the five-day package, and the transfer/packages/about image slots.
 
 ## 2. In flight
 
-- **Branch:** `chore/deploy-workflow` (off `main` at `badc658`). PR #5 (real tours + logo) is **merged**. The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a `git remote set-url`.
+- **Branch:** `feature/client-photos` (off `main`). PRs #5 (real tours + logo) and #6 (auto-deploy) are **merged**. The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a `git remote set-url`.
 - **Verified** (2026-08-25, local production build + `curl` against `npm start`):
   `npm run build` passes (28/28 pages) and prerenders the three new tour slugs; `/`, `/tours`, the
   three new tour pages, `/tours/airport-transfer-private`, `/airport-transfers`, `/icon.png`,
@@ -46,9 +49,16 @@ Still placeholder: photographs (one real photo), reviews, the five-day package.
   `.open-next/worker.js` (this was previously untested). Indexing gate checked in both directions:
   with the flag unset, `robots.txt` is `Disallow: /` and pages carry `noindex, nofollow`; with
   `NEXT_PUBLIC_ALLOW_INDEXING=true`, `robots.txt` allows and pages carry `index, follow`.
-- **Unverified (carried over):** real devices (iOS Safari date inputs), Cloudflare `preview`/`deploy`
-  against a real account, Lighthouse. **The deploy workflow itself has never run** — it cannot until
-  the two repository secrets exist.
+- **Verified (2026-08-25, photos):** all 17 images return 200 from the running build, `next/image`
+  optimisation serves them, and each page renders the slots expected of it (home + `/tours` cards
+  from the tour heroes, each tour page its own gallery). `npm run build` passes 28/28.
+- **Verified (2026-08-25, deploy):** the workflow ran on the merge of PR #6 and succeeded in 1m33s;
+  the live URL returns 200 across `/`, `/tours`, the tour pages, the brand assets and the favicon,
+  with `robots.txt` = `Disallow: /` and `noindex` on pages, as intended pre-launch.
+- **Unverified (carried over):** real devices (iOS Safari date inputs), Lighthouse. **No in-page
+  visual pass has ever happened** — the Chrome extension has not responded in this project. Header
+  logo balance, the booking-card price table and the 390px layout remain unconfirmed, and now so
+  does how the new photography crops in each slot.
 
 ## 3. How to verify after any change
 ```bash
@@ -82,7 +92,8 @@ overflow + broken-image checks. Rebuild it from that description if needed; noth
 | Booking card | `components/tours/BookingCard.tsx` | Renders `product.pricing` as a car/van table and `product.languages` as a fact row; falls back to the old "per person · indicative" line for drafts |
 | Types | `lib/types.ts` | `Service` gained `shortName` + `quoteKey`; `QuoteServiceKey`; `Product` gained `pricing`, `languages`, `accessibility`; `IconName` gained `search`, `arrow-up-right`, `globe` |
 | Icons | `components/ui/Icon.tsx` | Stroke set; add new names to `IconName` too |
-| Images | `public/images/le-morne-photo.jpg` (only real photo — now the Wild South tour hero), `components/ui/SmartImage.tsx` (placeholder → `next/image` swap) | Slot brief in `IMAGE-SHOTLIST.md` |
+| **Images** | `public/images/tours/<slot-id>.jpg` (one file per slot, named for the slot id), `public/images/le-morne-aerial.jpg` (shared: home hero, `/tours` header, Wild South hero, `island-mountain`) | 17 client photos, placed 25 Aug. `components/ui/SmartImage.tsx` swaps placeholder → `next/image`. Slot brief + per-slot resolutions in `IMAGE-SHOTLIST.md` |
+| Superseded image | `public/images/le-morne-photo.jpg` | The Aug-04 photo (1536×1536 but upscaled from a 512px original). Unreferenced, kept deliberately: it is the one image we know the client owns, so it is the fallback if `le-morne-aerial.jpg` turns out to have a rights problem |
 | Interior page headers | `components/ui/PageHeader.tsx` | Dark band with optional photo; unchanged this session |
 | SEO | `lib/schema.ts`, `components/seo/JsonLd.tsx`, `app/sitemap.ts`, `app/robots.ts`, `app/opengraph-image.tsx` | |
 | Deploy | `.github/workflows/deploy.yml`, `wrangler.jsonc`, `open-next.config.ts` | Push to `main` → build → Cloudflare Workers. See §6 |

@@ -8,6 +8,18 @@ photos arrive, each slot renders as an on-brand gradient placeholder sized corre
 `/content/*` (e.g. `hero.src = "/images/tours/south-hero.jpg"`). `<SmartImage>` then swaps the
 placeholder for an optimized `next/image` automatically — no code changes.
 
+**Naming convention:** one file per slot, named for the slot id —
+`/public/images/tours/<slot-id>.jpg`. The one image shared across several slots (the Le Morne
+aerial, used by the home hero, the /tours header and the Wild South tour) sits at
+`/public/images/le-morne-aerial.jpg`. Everything the site uses lives in this repository; nothing is
+referenced from a folder outside it.
+
+> ⚠️ **Every photo supplied on 25 Aug 2026 is below the minimum resolution in the table below** —
+> the largest is 1585×792 against a 2400×1350 target for a hero. They are in use because they beat
+> a grey placeholder, but each will look soft on a modern screen and the heroes are the worst
+> affected. Replacing them with high-resolution originals is still the biggest single upgrade left.
+> Provenance also needs settling before launch — see Requirements §1.4.
+
 **Format guidance**
 - Prefer landscape/wide originals at high resolution; we generate responsive/AVIF/WebP sizes.
 - Natural, warm colour treatment (no heavy filters/duotone). Real Mauritius locations only.
@@ -37,44 +49,49 @@ placeholder for an optimized `next/image` automatically — no code changes.
 | `about-story` | /about | The team welcoming travellers to the island | Landscape |
 
 ## Tour: Seven Coloured Earth & South Coast Wonders *(real product)*
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `south-chamarel-hero` | Aerial of the Seven Coloured Earth dunes, Chamarel | Wide |
-| `south-grand-bassin` | Sacred lake of Grand Bassin with temple statues | Landscape |
-| `south-alexandra-falls` | Alexandra Falls viewpoint over the Black River Gorges | Portrait |
-| `south-trou-aux-cerfs` | Panorama from the Trou aux Cerfs crater above Curepipe | Landscape |
+| Slot id | Subject | Orientation | Status |
+|---|---|---|---|
+| `south-chamarel-hero` | Coloured earth dunes and viewing platform, Chamarel | Wide | ✅ 1585×792 *(target 2400×1350)* |
+| `south-chamarel-aerial` | Aerial of the undulating coloured strips | Landscape | ✅ 1200×628 |
+| `south-chamarel-dunes` | The dunes and viewing pavilion from above | Landscape | ✅ 800×530 |
+| `south-grand-bassin` | Sacred lake of Grand Bassin with temple statues | Landscape | ⬜ |
+| *(also wanted)* | Alexandra Falls; Trou aux Cerfs crater; Black River Gorges viewpoint; Le Port ship models | — | ⬜ |
 
 ## Tour: Discover Port Louis & the North of Mauritius *(real product)*
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `north-cap-malheureux-hero` | Red-roofed church, turquoise sea, northern islets | Wide |
-| `north-central-market` | Spice and fruit stalls at the Port Louis Central Market | Landscape |
-| `north-botanic-garden` | Giant water lilies at the SSR Botanic Garden, Pamplemousses | Portrait |
-| `north-pereybere-beach` | White sand and calm turquoise water at Pereybere Beach | Landscape |
+| Slot id | Subject | Orientation | Status |
+|---|---|---|---|
+| `north-pereybere-hero` | Pereybere beach, Coin de Mire on the horizon | Wide | ✅ 1024×681 *(target 2400×1350)* |
+| `north-caudan-waterfront` | The colonial waterfront building at Le Caudan | Landscape | ✅ 719×480 |
+| `north-coin-de-mire` | Catamarans moored off a northern beach | Landscape | ✅ 768×260 — very letterboxed, crops hard |
+| `north-beach-aerial` | Aerial of a palm-lined beach and jetty | Landscape | ✅ 500×400 — **lowest resolution on the site** |
+| `north-central-market` | Spice and fruit stalls at the Central Market | Landscape | ⬜ |
+| *(also wanted)* | Cap Malheureux red-roofed church; SSR Botanic Garden; Château de Labourdonnais; Fort Adelaide | — | ⬜ |
 
 ## Tour: Vallée Advenature Park & the Wild South *(real product)*
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `south-le-morne-hero` | ✅ **supplied** — Le Morne Brabant over the lagoon (512px original; a ≥2400px version is still wanted) | Wide |
-| `wild-south-zipline` | Zipline crossing a canyon at La Vallée des Couleurs | Landscape |
-| `wild-south-gris-gris` | Waves crashing against the cliffs at Gris Gris | Portrait |
-| `wild-south-maconde` | The Maconde viewpoint above the southern coastline | Landscape |
+| Slot id | Subject | Orientation | Status |
+|---|---|---|---|
+| `south-le-morne-hero` | Le Morne aerial with the "underwater waterfall" | Wide | ✅ 900×600 *(shared: also home hero + /tours header)* |
+| `wild-south-luge` | Luge karts on the track at the park | Landscape | ✅ 1520×900 |
+| `wild-south-zipline` | Bicycle zipline above the trees | Landscape | ✅ 640×320 |
+| `wild-south-nepalese-bridge` | A family crossing the suspension bridge | Landscape | ✅ 640×320 |
+| `wild-south-maconde` | The coastal road curving around Maconde rock | Landscape | ✅ 1024×512 |
+| *(also wanted)* | Gris Gris cliffs; Rivière des Galets pebble shore | — | ⬜ |
 
-## Tour: Île aux Cerfs Catamaran Day *(placeholder — awaiting the client's own version)*
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `ile-aux-cerfs-hero` | Catamaran over turquoise lagoon near Île aux Cerfs | Wide |
-| `cerfs-beach` | White-sand beach + casuarina trees on the island | Landscape |
-| `cerfs-snorkel` | Snorkeller above a coral garden in clear water | Portrait |
-| `cerfs-grse-waterfall` | Grand River South East waterfall meeting the sea | Landscape |
+## Tour: Île aux Cerfs Catamaran Day *(still `draft` — but the client sent photos for it)*
+| Slot id | Subject | Orientation | Status |
+|---|---|---|---|
+| `ile-aux-cerfs-hero` | Catamaran under full sail on the lagoon | Wide | ✅ 720×479 |
+| `cerfs-catamaran` | Catamaran anchored off a white-sand islet | Square | ✅ 1080×1080 |
+| `cerfs-bbq` | Barbecue lunch cooking on board | Landscape | ✅ 640×320 |
+| `cerfs-grse-waterfall` | Grand River South East waterfall meeting the sea | Landscape | ⬜ |
 
-## Tour: Full-Island Private Day *(placeholder — awaiting the client's own version)*
-| Slot id | Subject | Orientation |
-|---|---|---|
-| `full-island-hero` | Coastal road along the shoreline, mountains inland | Wide |
-| `island-beach` | Empty white-sand beach with turquoise lagoon | Landscape |
-| `island-mountain` | Le Morne Brabant rising above the lagoon | Portrait |
-| `island-food` | Mauritian street food and tropical fruit | Square |
+## Tour: Full-Island Private Day *(still `draft` — but the client sent photos for it)*
+| Slot id | Subject | Orientation | Status |
+|---|---|---|---|
+| `full-island-hero` | Coastal road along the shoreline, mountains inland | Wide | ⬜ |
+| `island-beach` | Swimmers in shallow turquoise water | Landscape | ✅ 856×590 |
+| `island-mountain` | Le Morne Brabant above the lagoon | Portrait | ✅ *(reuses the shared Le Morne aerial)* |
+| `island-food` | Street vendor selling fried Mauritian snacks | Square | ✅ 800×800 |
 
 ## Product: Five-Day Mauritius Package
 | Slot id | Subject | Orientation |
