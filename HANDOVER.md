@@ -28,9 +28,31 @@ https://discover-mauritius-website.kcelerie.workers.dev, search engines blocked 
 client's first 17 photographs placed — every tour card and the home hero now show real photography.
 Still placeholder: reviews, the five-day package, and the transfer/packages/about image slots.
 
+**2026-09-07:** the client bought **`discover-mauritius.com`** (GoDaddy). Hosting stays on
+Cloudflare Workers — a static export was tested and is not viable for this build (`/contact`
+depends on `await searchParams` for the planner prefill, and `/api/quote` is a POST handler), so
+any PHP/shared host would mean deleting the enquiry funnel. The apex is canonical, `www` 308s to
+it, and both are declared as Custom Domains in `wrangler.jsonc`. Awaiting the client's nameserver
+change at GoDaddy before the branch can merge.
+
 ## 2. In flight
 
-- **Branch:** `feature/client-photos` (off `main`). PRs #5 (real tours + logo) and #6 (auto-deploy) are **merged**. The repo lives under the `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a `git remote set-url`.
+- **Branch:** `chore/custom-domain` (off `main`). PRs #5 (real tours + logo), #6 (auto-deploy) and
+  #7 (client photos) are all **merged** — the photos are live. The repo lives under the
+  `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a
+  `git remote set-url`.
+- **Verified (2026-09-07, custom domain):** `npm run build` passes 28/28 with the redirect in place.
+  Against `next start`, `Host: www.discover-mauritius.com` returns **308 → `https://discover-mauritius.com`**
+  with the path preserved on both `/tours` and a deep tour URL, while the apex returns **200** (no
+  loop). Canonical, `og:url`, `og:image` and every `<loc>` in the sitemap now carry the apex, with
+  **zero** `www.` occurrences left in the rendered home page. `robots.txt` is still `Disallow: /`
+  and pages still carry `noindex, nofollow` — the launch gate is untouched.
+- **⚠️ Not yet merged, and must not be until the Cloudflare zone is active.** The branch adds
+  Custom Domain routes; deploying them against a zone that does not exist in the account fails the
+  workflow, and `main` is production. The nameserver change at GoDaddy is the client's step.
+- **Unverified:** the redirect was exercised against `next start`, which is Next's own routing
+  layer, not the OpenNext/Workers runtime. Re-check the 308 on the real domain after the first
+  deploy that carries it.
 - **Verified** (2026-08-25, local production build + `curl` against `npm start`):
   `npm run build` passes (28/28 pages) and prerenders the three new tour slugs; `/`, `/tours`, the
   three new tour pages, `/tours/airport-transfer-private`, `/airport-transfers`, `/icon.png`,
@@ -117,7 +139,8 @@ Every push to `main` builds and deploys to Cloudflare Workers via
 `.github/workflows/deploy.yml`. There is no staging environment — `main` is production.
 
 **Two repository secrets are required before the workflow can succeed**
-(Settings → Secrets and variables → Actions → *Secrets*):
+(Settings → Secrets and variables → Actions → *Secrets*). **Both were added 2026-08-25 and the
+workflow has run green since — this is recorded for rebuild-from-scratch, not as an open task:**
 
 | Secret | Where it comes from |
 |---|---|
@@ -141,6 +164,24 @@ dashboard-driven builds were not firing. Note this project is a **Workers** app 
 Pages app — a Cloudflare *Pages* project cannot build it.
 
 Manual deploy from a workstation still works: `wrangler login` then `npm run deploy`.
+
+### Custom domain (added 2026-09-07)
+
+`discover-mauritius.com` — **registered at GoDaddy, DNS delegated to Cloudflare.** Not a transfer:
+registration stays with GoDaddy, only the nameservers point at Cloudflare.
+
+Both hostnames are declared as Custom Domains in `wrangler.jsonc` → `routes`, so `wrangler deploy`
+attaches them itself; there is no dashboard step to repeat. The **apex is canonical** and
+`www` 308s to it via `redirects()` in `next.config.mjs` — deliberately in code rather than a
+Cloudflare Redirect Rule, so it is version-controlled and reviewable.
+
+⚠️ **The routes only attach once the zone is active in the Cloudflare account.** Deploying while
+the zone is missing fails the workflow, and `main` is production. Confirm the zone is active
+*before* merging anything that carries these routes.
+
+`content/site.ts` now falls back to `https://discover-mauritius.com` instead of a guessed
+placeholder, so local and preview builds emit correct canonicals even with no env var set.
+`NEXT_PUBLIC_SITE_URL` is set as a repo variable to the same value and still wins if present.
 
 ## 6. Docs map
 - `NEXT_SESSION_REQUIREMENTS.md` — **client checklist** (what we still need, by priority, with history).

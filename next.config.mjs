@@ -8,6 +8,18 @@ const nextConfig = {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [],
   },
+  // Both custom domains hit the Worker, so the apex is made canonical here rather
+  // than in a dashboard rule — keeps the redirect in version control.
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.discover-mauritius.com" }],
+        destination: "https://discover-mauritius.com/:path*",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
