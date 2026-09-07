@@ -21,6 +21,7 @@ export const metadata: Metadata = {
 const methods: { icon: IconName; label: string; value: string; href: string; external?: boolean }[] = [
   { icon: "whatsapp", label: "WhatsApp (preferred)", value: site.phoneDisplay, href: whatsappLink(), external: true },
   { icon: "phone", label: "Call us", value: site.phoneDisplay, href: `tel:${site.phoneHref}` },
+  { icon: "phone", label: "Alternative line", value: site.phoneAltDisplay, href: `tel:${site.phoneAltHref}` },
   { icon: "mail", label: "Email", value: site.email, href: `mailto:${site.email}` },
   { icon: "facebook", label: "Facebook", value: site.facebookLabel, href: site.facebookUrl, external: true },
 ];

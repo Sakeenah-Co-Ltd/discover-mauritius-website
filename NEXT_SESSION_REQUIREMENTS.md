@@ -160,11 +160,12 @@ here rather than guessing silently.
 - **Where it is used:** `content/site.ts` (`address`).
 
 ### 2.3 ⬜ Confirm contact details
-- **Needed for:** every phone/WhatsApp/email link on the site. Current values come from the
-  discovery brief: **+230 5774 2612**, **info@nktahercoltd.com**.
-- **What to send:** "correct", or the corrected numbers/addresses; and the exact **Facebook page
-  URL** (today it is a search link for "Mauritius Tours with NK Taher"). Instagram/TripAdvisor URLs
-  if you have them.
+- **Updated 7 Sep 2026:** the phone numbers are now **+230 5941 4025** (primary, also the WhatsApp
+  line) and **+230 5757 4530** (alternative), replacing the brief's +230 5774 2612. Both appear on
+  the contact page, in the footer and in the mobile menu; WhatsApp links point at the primary.
+- **Still needed:** confirm **info@nktahercoltd.com** is the right inbox, confirm the primary number
+  is the one on WhatsApp, and send the exact **Facebook page URL** (today it is a search link for
+  "Mauritius Tours with NK Taher"). Instagram/TripAdvisor URLs if you have them.
 - **Where it is used:** `content/site.ts`.
 
 ### 2.4 ⬜ Real reviews

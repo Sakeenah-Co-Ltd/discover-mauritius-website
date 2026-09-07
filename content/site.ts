@@ -15,11 +15,16 @@ export const site = {
   director: "Nadiim Taher",
 
   email: "info@nktahercoltd.com",
-  phoneDisplay: "+230 5774 2612",
-  phoneHref: "+23057742612",
 
-  whatsappNumber: "23057742612",
-  whatsappUrl: "https://wa.me/23057742612",
+  // Numbers corrected by the client 7 Sep 2026, replacing the single
+  // discovery-brief number. The first line is primary (and the WhatsApp line).
+  phoneDisplay: "+230 5941 4025",
+  phoneHref: "+23059414025",
+  phoneAltDisplay: "+230 5757 4530",
+  phoneAltHref: "+23057574530",
+
+  whatsappNumber: "23059414025",
+  whatsappUrl: "https://wa.me/23059414025",
   whatsappMessage: "Hello! I'd like to plan a Mauritius trip…",
 
   // PENDING #: exact Facebook page URL not supplied — page name is

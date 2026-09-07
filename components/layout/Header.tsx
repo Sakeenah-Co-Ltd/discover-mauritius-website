@@ -211,6 +211,9 @@ export function Header() {
               <a href={`tel:${site.phoneHref}`} className="flex items-center justify-center gap-2 py-2 text-muted">
                 <Icon name="phone" size={16} /> {site.phoneDisplay}
               </a>
+              <a href={`tel:${site.phoneAltHref}`} className="flex items-center justify-center gap-2 pb-2 text-muted">
+                <Icon name="phone" size={16} /> {site.phoneAltDisplay}
+              </a>
             </div>
           </nav>
         </div>

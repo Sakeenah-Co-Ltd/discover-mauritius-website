@@ -13,7 +13,7 @@ export function organizationSchema() {
     legalName: site.legalName,
     url: site.url,
     email: site.email,
-    telephone: `+${site.whatsappNumber}`,
+    telephone: [site.phoneHref, site.phoneAltHref],
     foundingDate: site.foundedISO,
     description: site.oneLiner,
     slogan: site.tagline,
