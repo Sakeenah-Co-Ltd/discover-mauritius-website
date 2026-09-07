@@ -37,7 +37,8 @@ change at GoDaddy before the branch can merge.
 
 ## 2. In flight
 
-- **Branch:** `chore/custom-domain` (off `main`). PRs #5 (real tours + logo), #6 (auto-deploy) and
+- **Branch:** `docs/domain-live` (off `main`). PR #8 (custom domain) is **merged and deployed**.
+- **Branch was:** `chore/custom-domain` (off `main`). PRs #5 (real tours + logo), #6 (auto-deploy) and
   #7 (client photos) are all **merged** — the photos are live. The repo lives under the
   `Sakeenah-Co-Ltd` org; the old `kcelerie/…` URL (still in `origin`) redirects to it — worth a
   `git remote set-url`.
@@ -50,9 +51,29 @@ change at GoDaddy before the branch can merge.
 - **⚠️ Not yet merged, and must not be until the Cloudflare zone is active.** The branch adds
   Custom Domain routes; deploying them against a zone that does not exist in the account fails the
   workflow, and `main` is production. The nameserver change at GoDaddy is the client's step.
-- **Unverified:** the redirect was exercised against `next start`, which is Next's own routing
-  layer, not the OpenNext/Workers runtime. Re-check the 308 on the real domain after the first
-  deploy that carries it.
+- **Verified LIVE (2026-09-07, `discover-mauritius.com`)** — deploy run 34092850314 succeeded in
+  1m32s and the Custom Domains attached. Tested with `curl --resolve` against `104.21.32.213`, which
+  bypasses DNS cache entirely: apex `/` = **HTTP/2 200** (`server: cloudflare`); `www/tours` =
+  **308 → `https://discover-mauritius.com/tours`**, path preserved — this closes the previously
+  unverified item, the redirect now confirmed on the real Workers runtime, not just `next start`.
+  `/`, `/tours`, `/tours/port-louis-north`, `/contact`, `/airport-transfers`, `/opengraph-image`
+  and `/sitemap.xml` all **200**. Canonical = apex. `next/image` serves **AVIF, 47,241 bytes** vs
+  the 201,034-byte original. TLS cert issued by Google Trust Services (CN=discover-mauritius.com,
+  2026-09-07 → 2026-12-06). Cloudflare created proxied A (`104.21.32.213`, `172.67.136.21`) and
+  AAAA records for both hostnames.
+- **⚠️ Finding — Cloudflare's Managed robots.txt overrides the launch gate.** The zone injects a
+  managed block *above* the app's output, so `/robots.txt` now serves **two** `User-agent: *`
+  groups: Cloudflare's `Allow: /` and the app's `Disallow: /`. RFC 9309 merges same-agent groups,
+  and on an equal-specificity Allow/Disallow conflict the least restrictive rule generally wins —
+  so the robots half of `lib/seo-flags.ts` is effectively **not blocking** any more. The site is
+  still safe from indexing: `noindex, nofollow` is intact on every page and is the decisive signal
+  (arguably more reliable now, since a crawler that can fetch the page will actually read it). But
+  the documented "fully blocked" behaviour is no longer what is served. **Fix:** disable Managed
+  robots.txt for the zone (Cloudflare → the domain → AI Crawl Control / robots.txt), so the app's
+  own file is served verbatim. Only matters pre-launch — once `NEXT_PUBLIC_ALLOW_INDEXING=true`
+  both blocks agree.
+- **Unverified:** no in-page visual pass on the live domain; DNS still propagating at the time of
+  writing (see §5).
 - **Verified** (2026-08-25, local production build + `curl` against `npm start`):
   `npm run build` passes (28/28 pages) and prerenders the three new tour slugs; `/`, `/tours`, the
   three new tour pages, `/tours/airport-transfer-private`, `/airport-transfers`, `/icon.png`,
