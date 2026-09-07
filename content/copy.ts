@@ -91,6 +91,12 @@ export const copy = {
       subtitle:
         "Sample reviews shown while we gather approved guest testimonials.",
     },
+    credentials: {
+      eyebrow: "Who you're booking with",
+      title: "A registered operator, not a middleman",
+      subtitle:
+        "Your trip is arranged directly by the company that operates it — licensed in Mauritius, accredited by IATA, and reachable on WhatsApp before, during and after you travel.",
+    },
     faq: {
       eyebrow: "Good to know",
       title: "Questions, answered",

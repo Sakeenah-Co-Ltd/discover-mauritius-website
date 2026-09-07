@@ -18,7 +18,8 @@ const PRICE_NOTE = "PLACEHOLDER — awaiting client pricing";
 const PER_VEHICLE = "Per vehicle, not per person";
 
 /** Every tour is driven by the same multilingual driver-guide team. */
-const GUIDE_LANGUAGES = ["Hindi", "Arabic", "English", "French", "Urdu"];
+/** Shared by every product and by the credentials section on the home page. */
+export const GUIDE_LANGUAGES = ["Hindi", "Arabic", "English", "French", "Urdu"];
 
 export const products: Product[] = [
   {

@@ -168,11 +168,19 @@ here rather than guessing silently.
 - **Where it is used:** `content/site.ts`.
 
 ### 2.4 ⬜ Real reviews
-- **Needed for:** the testimonials section, which is clearly labelled **SAMPLE** until then.
-- **What to send:** 3–6 genuine reviews (name or first name + country, the trip they took, the
-  text, and where it was posted, e.g. Google/TripAdvisor). Only reviews you have permission to
-  show.
-- **Where it is used:** `content/testimonials.ts`.
+- **Changed 7 Sep 2026:** the sample testimonials are **no longer on the site.** They were invented
+  placeholders, and publishing them without the SAMPLE label — even anonymously — would be a
+  fabricated review on a commercial site, which is illegal in your main markets (EU UCPD, UK DMCC
+  Act). In their place the home page now shows **"A registered operator, not a middleman"**: your
+  company registration, IATA accreditation, guide languages and per-vehicle pricing. Every line of
+  it is checkable, and it does the same reassurance job.
+- **What to send when you can:** 3–6 genuine reviews (first name + country is fine — anonymising a
+  *real* review is completely legitimate), the trip they took, the text, and where it was posted
+  (Google/TripAdvisor/Facebook). Only reviews you have permission to show.
+- **What happens then:** the reviews section is parked, not deleted. Drop the real ones into
+  `content/testimonials.ts`, set `sample: false`, and re-add one line to `app/page.tsx` — it can sit
+  alongside the credentials band rather than replacing it.
+- **Where it is used:** `content/testimonials.ts` (parked), `components/sections/Credentials.tsx` (live).
 
 ### 2.5 ⬜ Certificates and licences
 - **Needed for:** the three "Certificate — to be supplied" frames on the About page (Tourism
