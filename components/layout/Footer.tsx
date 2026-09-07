@@ -93,6 +93,11 @@ export function Footer() {
                 </a>
               </li>
               <li>
+                <a href={`tel:${site.phoneAltHref}`} className="flex items-center gap-2 text-white/70 transition-colors hover:text-white">
+                  <Icon name="phone" size={15} /> {site.phoneAltDisplay}
+                </a>
+              </li>
+              <li>
                 <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-white/70 transition-colors hover:text-white">
                   <Icon name="whatsapp" size={15} /> WhatsApp
                 </a>
