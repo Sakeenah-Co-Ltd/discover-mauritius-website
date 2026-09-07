@@ -28,10 +28,11 @@ export const site = {
   facebookUrl:
     "https://www.facebook.com/search/top?q=Mauritius%20Tours%20with%20NK%20Taher",
 
-  // PENDING #5: real domain unknown. Override with NEXT_PUBLIC_SITE_URL at deploy.
+  // Domain settled (GoDaddy-registered, Cloudflare DNS). The apex is canonical;
+  // www 308s to it. NEXT_PUBLIC_SITE_URL still wins so previews can override.
   url:
     process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, "") ||
-    "https://www.discover-mauritius.com",
+    "https://discover-mauritius.com",
 
   // PENDING: precise street address not in brief — needed for LocalBusiness schema
   // and the contact map. Country is safe; street is a placeholder.

@@ -6,6 +6,13 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
+  // Custom Domains. Both hostnames resolve to this Worker; `www` is 308'd to the
+  // apex in next.config.mjs, so the apex is the single canonical origin.
+  // These only attach once the zone is active in Cloudflare — see HANDOVER §5.
+  "routes": [
+    { "pattern": "discover-mauritius.com", "custom_domain": true },
+    { "pattern": "www.discover-mauritius.com", "custom_domain": true }
+  ],
   "assets": {
     "directory": ".open-next/assets",
     "binding": "ASSETS"

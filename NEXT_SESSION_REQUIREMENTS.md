@@ -203,28 +203,34 @@ here rather than guessing silently.
   (Nadiim Taher) and the team, and what you want travellers to feel.
 - **Where it is used:** `app/about/page.tsx` copy.
 
-### 2.9 🟨 Domain and hosting — *host settled; two keys and a domain still needed*
+### 2.9 🟨 Domain and hosting — *host and domain both settled; one step is yours*
 - **Settled (25 Aug 2026):** hosting is **Cloudflare Workers**, deployed automatically. Every time
   the site is updated, it now rebuilds and goes live on its own — no manual step.
-- **⬜ I need two keys from your Cloudflare account** before that automation can run for the first
-  time. In the Cloudflare dashboard:
-  1. **My Profile → API Tokens → Create Token → "Edit Cloudflare Workers"** template. Copy the token.
-  2. **Workers & Pages → Account ID** in the right-hand sidebar. Copy it.
-  Then add both in GitHub under **Settings → Secrets and variables → Actions → Secrets**, named
-  exactly `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. **Add them yourself — do not send
-  them to me or paste them into chat.** A token pasted into a conversation has to be treated as
-  compromised and rotated.
-- **Heads up on what you set up already:** the Cloudflare connection you made is not reaching this
-  repository — Cloudflare's GitHub app is not installed on the `Sakeenah-Co-Ltd` organisation, most
-  likely because the code moved out of your personal account after you connected it. Nothing was
-  building. The automatic deploy above replaces it, so there is nothing for you to fix there.
-- **⬜ Domain.** You do not have one yet, so the first deploy will land on a free
-  `…workers.dev` address — enough to see the site and share it privately. When you buy a domain,
-  send me the name and I will point everything at it.
+- **✅ Cloudflare keys are in place.** Both `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` were
+  added on 25 Aug and the automated deploy has run green twice since. Nothing further needed.
+- **✅ Domain bought (7 Sep 2026): `discover-mauritius.com`, registered at GoDaddy.** The apex is
+  canonical; `www` permanently redirects to it. `NEXT_PUBLIC_SITE_URL` is set to
+  `https://discover-mauritius.com`, and the redirect + Custom Domain attachment are in the repo.
+- **⬜ One step only you can do — repoint the nameservers.** The domain is at GoDaddy but the site
+  is on Cloudflare, so Cloudflare has to be given control of the DNS:
+  1. **Cloudflare → Add a site → `discover-mauritius.com` → Free plan.** It will show you two
+     nameservers.
+  2. **GoDaddy → My Products → Domains → Domain Settings → Nameservers → Change → "I'll use my own
+     nameservers"** → paste Cloudflare's two → Save.
+  3. Once Cloudflare emails to say the zone is **active**, delete any leftover GoDaddy parking
+     `A`/`CNAME` on the apex or `www` under **DNS → Records**, or the site's domain attachment will
+     collide with them.
+  This is **not** a domain transfer — registration and billing stay at GoDaddy, and there is no
+  60-day lock or fee. Tell me when the zone is active and I will merge the branch that attaches it.
+- **No email is affected.** The contact address stays `info@nktahercoltd.com`, on a different
+  domain, so moving these nameservers cannot interrupt mail. If you later want an
+  `@discover-mauritius.com` mailbox, Cloudflare does not sell those — buy them from GoDaddy, Google
+  or Zoho and I will add the mail records.
 - **One thing to remember at launch:** the site is deliberately **hidden from Google** while the
   content is unfinished (sample reviews, placeholder prices). That is one setting to flip when you
   are ready — I will do it, but ask me, because a site nobody can find is easy to forget about.
-- **Where it is used:** `.github/workflows/deploy.yml`, `NEXT_PUBLIC_SITE_URL`,
+- **Where it is used:** `.github/workflows/deploy.yml`, `wrangler.jsonc` (`routes`),
+  `next.config.mjs` (`redirects`), `content/site.ts`, `NEXT_PUBLIC_SITE_URL`,
   `NEXT_PUBLIC_ALLOW_INDEXING`.
 
 ### 2.10 ⬜ Five-day package details
