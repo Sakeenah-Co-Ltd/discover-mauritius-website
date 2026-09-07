@@ -6,6 +6,10 @@ import { copy } from "@/content/copy";
 import type { Surface } from "@/lib/types";
 
 /**
+ * PARKED — not rendered. `Credentials` occupies this slot on the home page until real
+ * reviews arrive (§2.4). Do not re-add to `app/page.tsx` while the entries in
+ * `content/testimonials.ts` are still the invented placeholders.
+ *
  * SAMPLE testimonials, clearly labelled (brief §10, Pending #4).
  * A visible banner + per-card "SAMPLE" stamp make it unmistakable these are
  * placeholders, so nothing here reads as a fabricated genuine review.

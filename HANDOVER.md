@@ -33,7 +33,10 @@ Cloudflare Workers — a static export was tested and is not viable for this bui
 depends on `await searchParams` for the planner prefill, and `/api/quote` is a POST handler), so
 any PHP/shared host would mean deleting the enquiry funnel. The apex is canonical, `www` 308s to
 it, and both are declared as Custom Domains in `wrangler.jsonc`. Awaiting the client's nameserver
-change at GoDaddy before the branch can merge.
+change at GoDaddy before the branch can merge. *(Done — live since 7 Sep.)* The sample
+testimonials were also removed: they were invented, and the client asked for them to be shown as
+anonymous reviews, which would have made them fabricated reviews on a live commercial site. A
+credentials band built only from verifiable facts stands in that slot instead.
 
 ## 2. In flight
 
@@ -108,15 +111,30 @@ change at GoDaddy before the branch can merge.
 npm run build      # must pass; types + prerender of all pages
 npm start          # then click through Home → planner → /contact, /tours, a tour, About, FAQ
 ```
-Screenshot/QA harness used this session (not in repo): puppeteer-core against the local build,
-viewports 1440×900 and 390×844, scroll-through before full-page capture (scroll reveals), console +
-overflow + broken-image checks. Rebuild it from that description if needed; nothing project-specific.
+**Screenshot/QA harness — working recipe (2026-09-07).** There is no Google Chrome on this machine
+(the user runs Arc), and the Claude-in-Chrome extension has never responded here. What *does* work,
+with zero npm installs:
+
+1. Chrome for Testing already sits in the puppeteer cache:
+   `~/.cache/puppeteer/chrome/mac_arm-*/chrome-mac-arm64/Google Chrome for Testing.app/Contents/MacOS/Google Chrome for Testing`
+2. Launch it headless with `--remote-debugging-port=9333 --user-data-dir=<tmp>` **as a background
+   task** — a trailing `&` gets reaped and the port never opens.
+3. Drive it from plain Node (v22+ has a global `WebSocket`, so no puppeteer needed):
+   `Emulation.setDeviceMetricsOverride` for the viewport, then `Page.captureScreenshot` with
+   `captureBeyondViewport: true`.
+
+⚠️ **Do not screenshot with the plain `--screenshot` CLI flag and a narrow `--window-size`.** It lays
+the page out wider than the window and silently crops, which reads as horizontal overflow that is not
+there. Use `Emulation.setDeviceMetricsOverride` and assert
+`document.documentElement.scrollWidth === innerWidth` instead of trusting the picture.
 
 ## 4. Where to look in code
 
 | Area | File(s) | Notes |
 |---|---|---|
-| Home page order | `app/page.tsx` | `Hero` → `FeaturedTours` → `ServicesSection` → `WhyUs` → `HowItWorks` → `Testimonials` → `Faqs` → `QuoteCta` |
+| Home page order | `app/page.tsx` | `Hero` → `FeaturedTours` → `ServicesSection` → `WhyUs` → `HowItWorks` → **`Credentials`** → `Faqs` → `QuoteCta` |
+| **Credentials band** | `components/sections/Credentials.tsx` | Replaced the sample testimonials 7 Sep. Registered-entity card + 4 checkable facts, all sourced from `content/site.ts` and `GUIDE_LANGUAGES` in `content/tours.ts`. Copy in `copy.home.credentials`. Deliberately distinct from `WhyUs`: that one is qualitative benefits, this one is verifiable specifics |
+| **Testimonials (parked)** | `components/sections/Testimonials.tsx`, `content/testimonials.ts` | Not rendered. Entries are invented placeholders — do **not** re-add to `app/page.tsx` until real reviews replace them (§2.4). Kept so restoring is a one-line change |
 | **Home hero** | `components/home/Hero.tsx` | Floating card, copy column, photo (right half on `lg`, inset panel below `lg` via `lg:contents` trick), planner overlap (`-mt-20 lg:-mt-32`), trust strip |
 | **Trip planner** | `components/home/HeroPlanner.tsx` | Client component. Tabs from `content/services.ts` (`shortName`, `quoteKey`, `priority`); plain **GET form → `/contact`**; per-tab primary field (tours/packages from products, transfers + coasts are constants at the top); dates + travellers; gold submit |
 | Hero CSS | `app/globals.css` → "Home hero — floating card" | `.hero-card` gradient, `@utility hero-photo-mask`, `.hero-kenburns`, `.hero-line*`, `.hero-fade`, `@utility no-scrollbar`; reduced-motion block at the bottom |
